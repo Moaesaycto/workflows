@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: '/repository/', // Use your GitHub repository name here
+  base: '/workflows/', // Use your GitHub repository name here
   build: {
     outDir: 'dist', // Optional: Ensure output goes to the 'dist' folder
   },
