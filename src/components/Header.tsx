@@ -4,6 +4,7 @@ import { useTheme } from "../App";
 import themes from "../styles/themes";
 import "@fontsource/orbitron/700.css";
 import { Menu, X } from "lucide-react";
+import logo from "../assets/workflows-logo.svg";
 
 interface NavItem {
     name: string;
@@ -23,7 +24,7 @@ function Header({ navItems }: HeaderProps) {
             <div className="pt-6 pb-3 px-6 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
                 <div className="flex items-center space-x-4">
                     <Link to="/">
-                        <img src="/workflows-logo.svg" alt="Workflows Logo" className="h-12 w-12" />
+                        <img src={logo} alt="Workflows Logo" className="h-12 w-12" />
                     </Link>
                     <div>
                         <h1 className="text-3xl font-extrabold tracking-wide" style={{ fontFamily: 'Orbitron, sans-serif' }}>
