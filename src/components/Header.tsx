@@ -54,12 +54,13 @@ function Header({ navItems }: HeaderProps) {
                             );
                         })}
                         <li key="home" className={`px-2 py-1 text-white md:ml-auto ${isMobileMenuOpen ? "rounded-lg" : "md:rounded-t-md"}`} style={{ backgroundColor: "#6F7072" }}>
-                            <Link to="https://moaesaycto.github.io/" className="block transition duration-300 hover:opacity-80 space-x-2 p-2">
+                            <a href="https://moaesaycto.github.io/" target="_blank" rel="noopener noreferrer" className="block transition duration-300 hover:opacity-80 space-x-2 p-2">
+
                                 <div className="flex items-center justify-center md:justify-start">
                                     <img src="/moae-logo.svg" alt="MOAE Logo" className="h-5 w-5 rounded-full self-center" />
                                     <span className="pl-2 text-white uppercase tracking-wide">MOAE</span>
                                 </div>
-                            </Link>
+                            </a>
                         </li>
                     </ul>
                 </div>
