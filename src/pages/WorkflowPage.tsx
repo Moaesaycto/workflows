@@ -29,7 +29,7 @@ export default function WorkflowPage() {
         subcategory: sub,
         files: files[sub] || [],
         style: styles[sub] || {},
-        icon: icons[sub] ? "src" + icons[sub] : "",
+        icon: icons[sub] ? ".." + icons[sub] : "",
       }));
 
       setSubcategories(formattedData);
