@@ -1,4 +1,4 @@
-const allFiles = import.meta.glob('/src/workflows/**/*.md');
+const allFiles = import.meta.glob('/src/workflows/**/*.md', { as: 'raw' });
 const allAssets = import.meta.glob('/src/workflows/**/style.json', { eager: true, as: 'json' });
 const allIcons = import.meta.glob('/src/workflows/**/icon.png', { eager: true });
 
