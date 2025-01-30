@@ -148,26 +148,25 @@ I will mostly handle this, just make sure to name the file something unique and 
 ---\r
 \r
 ## Special Equation Formatting for This Site\r
-**This site uses a custom equation format!**  \r
-- **Inline equations** use **single \`$\`** like this:\r
+**This site uses a custom equation format!**\r
+\r
+MathJax is a bit strange, and requires two backslashes to could as a single one. So, for a new line, you'd do \`\\\\\\\\\` instead of \`\\\\\`. You will not be able to use \`$\` or \`$$\`.\r
+- **Inline equations** use **\`\\\\(\` and \`\\\\)\`** like this:\r
   \`\`\`md\r
-  The equation $E = mc^2$ describes mass-energy equivalence.\r
+  The equation \\\\(E = mc^2\\\\) describes mass-energy equivalence.\r
   \`\`\`\r
   • **Example Output:**  \r
-  The equation $E = mc^2$ describes mass-energy equivalence.\r
+  The equation \\\\(E = mc^2\\\\) describes mass-energy equivalence.\r
 \r
-- **Block equations** use **double \`$$\`**, with a blank line before and after:\r
+- **Block equations** use **\`\\\\[\` and \`\\\\]\`**, with a blank line before and after:\r
   \`\`\`md\r
-  $$  \r
+  \\\\[  \r
       f(x) = x^2  \r
-  $$\r
+  \\\\]\r
   \`\`\`\r
   • **Example Output:**\r
-  $$\r
+  \\\\[\r
   f(x) = x^2\r
-  $$\r
+  \\\\]\r
 \r
-**Important Notes:**\r
-- The \`$\` and \`$$\` notation **only applies to this site** and will not work in other Markdown applications.  \r
-- Do **not** use standard LaTeX-style \`\\( ... \\)\` or \`\\[ ... \\]\` for equations.\r
 `;export{n as default};
