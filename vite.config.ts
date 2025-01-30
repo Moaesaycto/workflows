@@ -14,4 +14,5 @@ export default defineConfig({
   build: {
     outDir: 'dist', // Optional: Ensure output goes to the 'dist' folder
   },
+  assetsInclude: ['**/*.md'],
 })
