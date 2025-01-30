@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import { MathJax, MathJaxContext } from "better-react-mathjax"; // ✅ MathJax
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { getMarkdownContent } from "../utils/file";
@@ -35,7 +35,7 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
                     <div className="p-4 bg-zinc-900 text-white rounded-md">
                         <MathJax dynamic>
                             <ReactMarkdown
-                                remarkPlugins={[remarkMath, remarkGfm]} // ✅ Math rendering enabled
+                                remarkPlugins={[remarkMath, remarkGfm]}
                                 components={{
                                     h1: ({ children }) => <h1 className="text-3xl font-bold">{children}</h1>,
                                     h2: ({ children }) => <h2 className="text-2xl font-semibold mt-10">{children}</h2>,
