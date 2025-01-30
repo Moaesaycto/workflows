@@ -1,3 +1,5 @@
+const BASE_URL = import.meta.env.BASE_URL || '';
+
 const allFiles = import.meta.glob('/src/workflows/**/*.md', { as: 'raw' });
 const allAssets = import.meta.glob('/src/workflows/**/style.json', { eager: true, as: 'json' });
 const allIcons = import.meta.glob('/src/workflows/**/icon.png', { eager: true });
@@ -36,7 +38,7 @@ export function getDirectChildFolders(basePath: "workflows", category?: string) 
     Object.entries(allIcons).forEach(([path]) => {
         const parts = path.split('/');
         const subcategory = parts[parts.length - 2];
-        icons[subcategory] = path.replace('/src', '');
+        icons[subcategory] = `${BASE_URL}${path.replace('/src', '')}`;
     });
 
     return {
