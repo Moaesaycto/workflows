@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, } from "react";
 import { getDirectChildFolders } from "../utils/file";
 import CollapsibleSection from "../components/CollapsibleSection";
 import { isColorDark } from "../utils/color";
