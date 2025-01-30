@@ -63,6 +63,7 @@ export default function WorkflowPage() {
         }))
       );
     }
+    setSelectedSubcategories([]);
   }, [category]);
 
   const filteredSubcategories = subcategories
