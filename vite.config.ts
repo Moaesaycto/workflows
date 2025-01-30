@@ -16,10 +16,19 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return 'vendor'; // Moves all dependencies into a separate chunk
+          if (id.includes("node_modules")) {
+              if (id.includes("react") || id.includes("react-dom")) {
+                  return "vendor-react"; // React-related code
+              }
+              if (id.includes("lodash")) {
+                  return "vendor-lodash"; // Lodash separate chunk
+              }
+              if (id.includes("prismjs")) {
+                  return "vendor-prism"; // Syntax highlighting
+              }
+              return "vendor"; // General vendor chunk
           }
-        }
+      },
       }
     }
   },
