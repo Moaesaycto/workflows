@@ -33,7 +33,7 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
                     </div>
 
                     <div className="p-4 bg-zinc-900 text-white rounded-md">
-                        <MathJax>
+                        <MathJax dynamic>
                             <ReactMarkdown
                                 remarkPlugins={[remarkMath, remarkGfm]} // ✅ Math rendering enabled
                                 components={{
