@@ -71,6 +71,21 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
                                     />
                                 </div>
                             ),
+                            table: ({ children }) => (
+                                <table className="border-collapse border border-gray-500 w-full text-left my-4">
+                                    {children}
+                                </table>
+                            ),
+                            th: ({ children }) => (
+                                <th className="border border-gray-500 bg-gray-800 text-white px-4 py-2">
+                                    {children}
+                                </th>
+                            ),
+                            td: ({ children }) => (
+                                <td className="border border-gray-500 px-4 py-2">
+                                    {children}
+                                </td>
+                            ),
                         }}
                     >
                         {content}

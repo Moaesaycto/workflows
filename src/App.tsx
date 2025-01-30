@@ -7,6 +7,7 @@ import themes from './styles/themes';
 import './index.css';
 import { getDirectChildFolders } from './utils/file';
 import ArticlePage from './pages/ArticlePage';
+import HomePage from './pages/HomePage';
 
 function App() {
   const location = useLocation();
@@ -54,7 +55,7 @@ function App() {
         <Header navItems={navItems} />
         <main className="flex-1 w-full max-w-7xl mx-auto">
           <Routes>
-            <Route path="/" element={<h2>Welcome to Workflows</h2>} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/:category" element={<WorkflowPage />} />
             <Route path="/:category/:subcategory/:article" element={<ArticlePage />} />
           </Routes>
