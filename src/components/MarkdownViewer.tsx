@@ -31,7 +31,7 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
                         <h3 className="uppercase font-bold text-xl">{articleRoute}</h3>
                         <ReturnButton category={category} />
                     </div>
-                    
+
                     <div className="p-4 bg-zinc-900 text-white rounded-md">
                         <MathJax>
                             <ReactMarkdown
@@ -62,13 +62,11 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
                                         );
                                     },
                                     img: ({ src, alt }) => (
-                                        <div className="flex justify-center my-4">
-                                            <img
-                                                src={src || ""}
-                                                alt={alt || ""}
-                                                className="max-w-full max-h-96 h-auto rounded-lg shadow-md"
-                                            />
-                                        </div>
+                                        <img
+                                            src={src || ""}
+                                            alt={alt || ""}
+                                            className="max-w-full max-h-96 h-auto rounded-lg shadow-md mx-auto block"
+                                        />
                                     ),
                                     table: ({ children }) => (
                                         <table className="border-collapse border border-gray-500 w-full text-left my-4">
