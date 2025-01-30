@@ -51,9 +51,11 @@ export function getDirectChildFolders(basePath: "workflows", category?: string) 
 const allMarkdownFiles = import.meta.glob('/src/workflows/**/*.md', { query: '?raw', import: 'default' });
 
 export function getMarkdownContent(filePath: string): Promise<string> {
-  if (allMarkdownFiles[filePath]) {
-    return allMarkdownFiles[filePath]() as Promise<string>;
-  } else {
-    return Promise.resolve('Markdown file not found.');
-  }
+    const matchingKey = Object.keys(allMarkdownFiles).find(key => key.includes(filePath));
+
+    if (matchingKey && allMarkdownFiles[matchingKey]) {
+        return allMarkdownFiles[matchingKey]() as Promise<string>;
+    } else {
+        return Promise.resolve('Markdown file not found.');
+    }
 }
