@@ -1,6 +1,6 @@
-const allFiles = import.meta.glob('/src/workflows/**/*.md', { as: 'raw' });
-const allAssets = import.meta.glob('/src/workflows/**/style.json', { eager: true, as: 'json' });
-const allIcons = import.meta.glob('/src/workflows/**/icon.png', { eager: true, as: 'url' });
+const allFiles = import.meta.glob('/src/workflows/**/*.md', { query: '?raw', import: 'default' });
+const allAssets = import.meta.glob('/src/workflows/**/style.json', { eager: true, query: '?json' });
+const allIcons = import.meta.glob('/src/workflows/**/icon.png', { eager: true, query: '?url', import: 'default' });
 
 export function getDirectChildFolders(basePath: "workflows", category?: string) {
     const folders = new Set<string>();
@@ -36,7 +36,7 @@ export function getDirectChildFolders(basePath: "workflows", category?: string) 
     Object.entries(allIcons).forEach(([path, url]) => {
         const parts = path.split('/');
         const subcategory = parts[parts.length - 2];
-        icons[subcategory] = url
+        icons[subcategory] = url as string
     });
 
     return {
@@ -48,11 +48,11 @@ export function getDirectChildFolders(basePath: "workflows", category?: string) 
 }
 
 
-const allMarkdownFiles = import.meta.glob('/src/workflows/**/*.md', { as: 'raw' });
+const allMarkdownFiles = import.meta.glob('/src/workflows/**/*.md', { query: '?raw', import: 'default' });
 
 export function getMarkdownContent(filePath: string): Promise<string> {
   if (allMarkdownFiles[filePath]) {
-    return allMarkdownFiles[filePath]();
+    return allMarkdownFiles[filePath]() as Promise<string>;
   } else {
     return Promise.resolve('Markdown file not found.');
   }
