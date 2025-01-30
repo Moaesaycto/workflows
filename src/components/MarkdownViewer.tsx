@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+import { MathJax, MathJaxContext } from "better-react-mathjax"; // ✅ MathJax
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { getMarkdownContent } from "../utils/file";
 import { useTheme } from "../App";
 import { isColorDark } from "../utils/color";
-import "katex/dist/katex.min.css";
 
 export default function MarkdownViewer({ filePath }: { filePath: string }) {
     const [content, setContent] = useState("");
@@ -25,80 +24,83 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
     const articleRoute = `${category.charAt(0).toUpperCase() + category.slice(1)} / ${subcategory.charAt(0).toUpperCase() + subcategory.slice(1)} / ${articleTitle.charAt(0).toUpperCase() + articleTitle.slice(1)}`.replace(/_/g, " ");;
 
     return (
-        <div>
-            <div className="p-4">
-                <div className="flex flex-row w-full justify-between items-center bg-zinc-900 p-4 rounded-lg mb-3 gap-4">
-                    <h3 className="uppercase font-bold text-xl">
-                        {articleRoute}
-                    </h3>
-                    <ReturnButton category={category} />
-                </div>
-                <div className="p-4 bg-zinc-900 text-white rounded-md">
-                    <ReactMarkdown
-                        remarkPlugins={[remarkMath, remarkGfm]}
-                        rehypePlugins={[rehypeKatex]}
-                        components={{
-                            h1: ({ children }) => <h1 className="text-3xl font-bold">{children}</h1>,
-                            h2: ({ children }) => <h2 className="text-2xl font-semibold mt-10">{children}</h2>,
-                            h3: ({ children }) => <h3 className="text-xl font-medium mt-4">{children}</h3>,
-                            p: ({ children }) => <p className="text-lg text-gray-300 mt-2">{children}</p>,
-                            ul: ({ children }) => <ul className="list-disc ml-5 mt-2">{children}</ul>,
-                            ol: ({ children }) => <ol className="list-decimal ml-5 mt-2">{children}</ol>,
-                            hr: () => <hr className="my-8 border-gray-700" />,
-                            blockquote: ({ children }) => (
-                                <blockquote className="border-l-4 border-gray-500 pl-4 italic text-gray-400">
-                                    {children}
-                                </blockquote>
-                            ),
-                            code({ node, inline = false, className, children, ...props }: { node?: any, inline?: boolean, className?: string, children?: React.ReactNode }) {
-                                const match = /language-(\w+)/.exec(className || "");
-                                return !inline && match ? (
-                                    <SyntaxHighlighter style={oneDark} language={match[1]} PreTag="div" {...props}>
-                                        {String(children).replace(/\n$/, "")}
-                                    </SyntaxHighlighter>
-                                ) : (
-                                    <code className="bg-gray-800 text-red-400 px-1 py-0.5 rounded">
-                                        {children}
-                                    </code>
-                                );
-                            },
-                            img: ({ src, alt }) => (
-                                <div className="flex justify-center my-4">
-                                    <img
-                                        src={src || ""}
-                                        alt={alt || ""}
-                                        className="max-w-full max-h-96 h-auto rounded-lg shadow-md"
-                                    />
-                                </div>
-                            ),
-                            table: ({ children }) => (
-                                <table className="border-collapse border border-gray-500 w-full text-left my-4">
-                                    {children}
-                                </table>
-                            ),
-                            th: ({ children }) => (
-                                <th className="border border-gray-500 bg-gray-800 text-white px-4 py-2">
-                                    {children}
-                                </th>
-                            ),
-                            td: ({ children }) => (
-                                <td className="border border-gray-500 px-4 py-2">
-                                    {children}
-                                </td>
-                            ),
-                        }}
-                    >
-                        {content}
-                    </ReactMarkdown>
-                </div>
-                <div className="my-4 flex justify-between items-center">
-                    <div className="text-xl italic">
-                        You have finished this article. Return to the {category} page to browse more articles.
+        <MathJaxContext>
+            <div>
+                <div className="p-4">
+                    <div className="flex flex-row w-full justify-between items-center bg-zinc-900 p-4 rounded-lg mb-3 gap-4">
+                        <h3 className="uppercase font-bold text-xl">{articleRoute}</h3>
+                        <ReturnButton category={category} />
                     </div>
-                    <ReturnButton category={category} />
+                    
+                    <div className="p-4 bg-zinc-900 text-white rounded-md">
+                        <MathJax>
+                            <ReactMarkdown
+                                remarkPlugins={[remarkMath, remarkGfm]} // ✅ Math rendering enabled
+                                components={{
+                                    h1: ({ children }) => <h1 className="text-3xl font-bold">{children}</h1>,
+                                    h2: ({ children }) => <h2 className="text-2xl font-semibold mt-10">{children}</h2>,
+                                    h3: ({ children }) => <h3 className="text-xl font-medium mt-4">{children}</h3>,
+                                    p: ({ children }) => <p className="text-lg text-gray-300 mt-2">{children}</p>,
+                                    ul: ({ children }) => <ul className="list-disc ml-5 mt-2">{children}</ul>,
+                                    ol: ({ children }) => <ol className="list-decimal ml-5 mt-2">{children}</ol>,
+                                    hr: () => <hr className="my-8 border-gray-700" />,
+                                    blockquote: ({ children }) => (
+                                        <blockquote className="border-l-4 border-gray-500 pl-4 italic text-gray-400">
+                                            {children}
+                                        </blockquote>
+                                    ),
+                                    code({ node, inline, className, children, ...props }: { node?: any, inline?: boolean, className?: string, children?: React.ReactNode }) {
+                                        const match = /language-(\w+)/.exec(className || "");
+                                        return !inline && match ? (
+                                            <SyntaxHighlighter style={oneDark} language={match[1]} PreTag="div" {...props}>
+                                                {String(children).replace(/\n$/, "")}
+                                            </SyntaxHighlighter>
+                                        ) : (
+                                            <code className="bg-gray-800 text-red-400 px-1 py-0.5 rounded">
+                                                {children}
+                                            </code>
+                                        );
+                                    },
+                                    img: ({ src, alt }) => (
+                                        <div className="flex justify-center my-4">
+                                            <img
+                                                src={src || ""}
+                                                alt={alt || ""}
+                                                className="max-w-full max-h-96 h-auto rounded-lg shadow-md"
+                                            />
+                                        </div>
+                                    ),
+                                    table: ({ children }) => (
+                                        <table className="border-collapse border border-gray-500 w-full text-left my-4">
+                                            {children}
+                                        </table>
+                                    ),
+                                    th: ({ children }) => (
+                                        <th className="border border-gray-500 bg-gray-800 text-white px-4 py-2">
+                                            {children}
+                                        </th>
+                                    ),
+                                    td: ({ children }) => (
+                                        <td className="border border-gray-500 px-4 py-2">
+                                            {children}
+                                        </td>
+                                    ),
+                                }}
+                            >
+                                {content}
+                            </ReactMarkdown>
+                        </MathJax>
+                    </div>
+
+                    <div className="my-4 flex justify-between items-center">
+                        <div className="text-xl italic">
+                            You have finished this article. Return to the {category} page to browse more articles.
+                        </div>
+                        <ReturnButton category={category} />
+                    </div>
                 </div>
             </div>
-        </div >
+        </MathJaxContext>
     );
 }
 
@@ -112,7 +114,7 @@ const ReturnButton = ({ category }: { category: string }) => {
             onClick={() => navigate(`/${category}`)}
             style={{
                 backgroundColor: theme["--secondary-color"],
-                color: isColorDark(theme["--secondary-color"]) ? "#ffffff" : "#00000"
+                color: isColorDark(theme["--secondary-color"]) ? "#ffffff" : "#000000"
             }}
         >
             <span className="mr-2 transition-transform duration-300 transform group-hover:-translate-x-1">
@@ -120,5 +122,5 @@ const ReturnButton = ({ category }: { category: string }) => {
             </span>
             Back to {category.charAt(0).toUpperCase() + category.slice(1)}
         </button>
-    )
-}
+    );
+};
