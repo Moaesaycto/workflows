@@ -27,7 +27,7 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
     return (
         <div>
             <div className="p-4">
-                <div className="flex flex-row w-full justify-between items-center bg-zinc-900 p-4 rounded-lg mb-3">
+                <div className="flex flex-row w-full justify-between items-center bg-zinc-900 p-4 rounded-lg mb-3 gap-4">
                     <h3 className="uppercase font-bold text-xl">
                         {articleRoute}
                     </h3>
