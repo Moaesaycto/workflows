@@ -32,8 +32,6 @@ export default function WorkflowPage() {
         icon: icons[sub] || "",
       }));
 
-      console.log(formattedData);
-
       setSubcategories(formattedData);
     }
   }, [category]);
