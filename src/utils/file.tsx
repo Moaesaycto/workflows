@@ -36,7 +36,7 @@ export function getDirectChildFolders(basePath: "workflows", category?: string) 
     Object.entries(allIcons).forEach(([path]) => {
         const parts = path.split('/');
         const subcategory = parts[parts.length - 2];
-        icons[subcategory] = path.replace('/src', '');
+        icons[subcategory] = new URL(path, import.meta.url).href;
     });
 
     return {
