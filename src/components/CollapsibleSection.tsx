@@ -21,7 +21,7 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({ title, icon, st
   const textColor = style?.backgroundColor && isColorDark(style.backgroundColor) ? "#ffffff" : "#000000";
 
   return (
-    <li className="rounded-lg mb-5 shadow-md" style={{ backgroundColor: style?.backgroundColor }}>
+    <div className="rounded-lg mb-5 shadow-md" style={{ backgroundColor: style?.backgroundColor }}>
       <div
         className="subcategory p-2 rounded-lg cursor-pointer flex items-center justify-between"
         style={{ backgroundColor: style?.backgroundColor || "#f5f5f5" }}
@@ -54,7 +54,7 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({ title, icon, st
           </motion.ul>
         )}
       </AnimatePresence>
-    </li>
+    </div>
   );
 };
 

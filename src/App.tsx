@@ -6,12 +6,14 @@ import WorkflowPage from './pages/WorkflowPage';
 import themes from './styles/themes';
 import './index.css';
 import { getDirectChildFolders } from './utils/file';
+import ArticlePage from './pages/ArticlePage';
 
 function App() {
   const location = useLocation();
   const [theme, setTheme] = useState(themes.default);
   const [category, setCategory] = useState("");
   const [navItems, setNavItems] = useState<{ name: string; path: string }[]>([]);
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const { subcategories } = getDirectChildFolders("workflows");
@@ -42,14 +44,19 @@ function App() {
     });
   }, [location.pathname, theme]);
 
+  useEffect(() => {
+    setTitle(category);
+  }, [category])
+
   return (
-    <ThemeContext.Provider value={{ category, theme, setTheme, navItems }}>
+    <ThemeContext.Provider value={{ category, theme, setTheme, navItems, title, setTitle }}>
       <div className="app-container min-h-screen flex flex-col w-full">
         <Header navItems={navItems} />
         <main className="flex-1 w-full max-w-7xl mx-auto">
           <Routes>
             <Route path="/" element={<h2>Welcome to Workflows</h2>} />
             <Route path="/:category" element={<WorkflowPage />} />
+            <Route path="/:category/:subcategory/:article" element={<ArticlePage />} />
           </Routes>
         </main>
         <Footer />
@@ -63,11 +70,15 @@ const ThemeContext = createContext<{
   theme: typeof themes.computing;
   setTheme: React.Dispatch<React.SetStateAction<typeof themes.computing>>;
   navItems: { name: string; path: string }[];
+  title: string;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
 }>({
   category: "",
   theme: themes.default,
-  setTheme: () => {},
+  setTheme: () => { },
   navItems: [],
+  title: "",
+  setTitle: () => {}
 });
 
 export function useTheme() {

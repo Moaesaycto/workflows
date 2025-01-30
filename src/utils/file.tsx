@@ -46,3 +46,14 @@ export function getDirectChildFolders(basePath: "workflows", category?: string) 
         icons,
     };
 }
+
+
+const allMarkdownFiles = import.meta.glob('/src/workflows/**/*.md', { as: 'raw' });
+
+export function getMarkdownContent(filePath: string): Promise<string> {
+  if (allMarkdownFiles[filePath]) {
+    return allMarkdownFiles[filePath]();
+  } else {
+    return Promise.resolve('Markdown file not found.');
+  }
+}

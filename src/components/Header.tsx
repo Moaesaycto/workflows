@@ -18,7 +18,7 @@ interface HeaderProps {
 }
 
 function Header({ navItems }: HeaderProps) {
-    const { theme } = useTheme();
+    const { theme, title } = useTheme();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
@@ -67,7 +67,27 @@ function Header({ navItems }: HeaderProps) {
                     </ul>
                 </div>
             </nav>
-            <div className="w-full h-2" style={{ backgroundColor: theme["--primary-color"] }} />
+            {
+                title ? (<div className="shadow-md">
+                    <div className="w-full h-2" style={{ backgroundColor: theme["--primary-color"] }} />
+                    <div className="w-full flex justify-center" style={{ backgroundColor: theme["--secondary-color"] }}>
+                        <div className="max-w-7xl">
+                            <h2
+                                className="px-5 py-2 uppercase text-center font-bold text-3xl"
+                                style={{
+                                    backgroundColor: theme["--secondary-color"],
+                                    color: isColorDark(theme["--secondary-color"]) ? "#ffffff" : "#000000",
+                                }}>
+                                {title}
+                            </h2>
+                        </div>
+                    </div>
+                    <div className="w-full h-2" style={{ backgroundColor: theme["--primary-color"] }} />
+                </div>) :
+                (
+                    <div className="w-full h-2" style={{ backgroundColor: theme["--primary-color"] }} />
+                )
+            }
         </header>
     );
 }
