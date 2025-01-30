@@ -40,17 +40,17 @@ export default function FilterSubcategories({ subcategories, selectedSubcategori
               className="flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer"
             >
               <input
-                type="checkbox"
-                checked={selectedSubcategories.includes(subcategory)}
-                onChange={() => handleCheckboxChange(subcategory)}
-                className="hidden"
+              type="checkbox"
+              checked={selectedSubcategories.includes(subcategory)}
+              onChange={() => handleCheckboxChange(subcategory)}
+              className="hidden"
               />
               <div className="w-5 h-5 border border-gray-400 flex items-center justify-center rounded">
-                {selectedSubcategories.includes(subcategory) && (
-                  <div className="w-3 h-3 bg-white rounded"></div>
-                )}
+              {selectedSubcategories.includes(subcategory) && (
+                <div className="w-3 h-3 bg-white rounded"></div>
+              )}
               </div>
-              {subcategory.charAt(0).toUpperCase() + subcategory.slice(1)}
+              {subcategory.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
             </label>
           ))}
         </div>

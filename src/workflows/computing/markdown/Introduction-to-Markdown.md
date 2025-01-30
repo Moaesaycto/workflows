@@ -96,19 +96,6 @@ Create links using this format:
 
 ---
 
-## Images
-```md
-![Alt Text](./image.png)
-```
-• **Example Output:**  
-![Example Image](./image.png)
-
-📌 **Note:**  
-- If your images are inside the **same folder** as your `.md` file, just use `./image.png`.  
-- Otherwise, put images in `/public/images/` and reference them as `/images/example.png`.
-
----
-
 ## Blockquotes
 Use `>` to create a **blockquote**:
 ```md
