@@ -148,25 +148,24 @@ I will mostly handle this, just make sure to name the file something unique and 
 ---
 
 ## Special Equation Formatting for This Site
-**This site uses a custom equation format!**  
-- **Inline equations** use **single `$`** like this:
+**This site uses a custom equation format!**
+
+MathJax is a bit strange, and requires two backslashes to could as a single one. So, for a new line, you'd do `\\\\` instead of `\\`. You will not be able to use `$` or `$$`.
+- **Inline equations** use **`\\(` and `\\)`** like this:
   ```md
-  The equation $E = mc^2$ describes mass-energy equivalence.
+  The equation \\(E = mc^2\\) describes mass-energy equivalence.
   ```
   • **Example Output:**  
-  The equation $E = mc^2$ describes mass-energy equivalence.
+  The equation \\(E = mc^2\\) describes mass-energy equivalence.
 
-- **Block equations** use **double `$$`**, with a blank line before and after:
+- **Block equations** use **`\\[` and `\\]`**, with a blank line before and after:
   ```md
-  $$  
+  \\[  
       f(x) = x^2  
-  $$
+  \\]
   ```
   • **Example Output:**
-  $$
+  \\[
   f(x) = x^2
-  $$
+  \\]
 
-**Important Notes:**
-- The `$` and `$$` notation **only applies to this site** and will not work in other Markdown applications.  
-- Do **not** use standard LaTeX-style `\( ... \)` or `\[ ... \]` for equations.
