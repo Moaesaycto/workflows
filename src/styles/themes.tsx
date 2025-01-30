@@ -15,7 +15,7 @@ const themes = {
         '--success-color': '#388E3C',
         '--background-color': '#E8F5E9',
     },
-    cooking: {
+    mathematics: {
         '--primary-color': '#9C27B0',
         '--secondary-color': '#7B1FA2',
         '--warning-color': '#FF9800',

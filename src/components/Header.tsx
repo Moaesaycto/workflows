@@ -5,6 +5,8 @@ import themes from "../styles/themes";
 import "@fontsource/orbitron/700.css";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/workflows-logo.svg";
+import moaeLogo from "../assets/moae-logo.svg";
+import { isColorDark } from "../utils/color";
 
 interface NavItem {
     name: string;
@@ -46,7 +48,7 @@ function Header({ navItems }: HeaderProps) {
                             return (
                                 <li key={item.path} className={`px-2 py-1 text-white text-center md:text-left ${isMobileMenuOpen ? "rounded-lg" : "md:rounded-t-md"}`} style={{ backgroundColor: itemTheme["--primary-color"] }}>
                                     <Link to={item.path} className="block transition duration-300 hover:opacity-80 p-2">
-                                        <p className="text-white uppercase tracking-wide">
+                                        <p className="text-white uppercase tracking-wide" style={{ color: isColorDark(theme["--primary-color"]) ? "#ffffff" : "#000000" }}>
                                             {item.name}
                                         </p>
                                     </Link>
@@ -57,7 +59,7 @@ function Header({ navItems }: HeaderProps) {
                             <a href="https://moaesaycto.github.io/" target="_blank" rel="noopener noreferrer" className="block transition duration-300 hover:opacity-80 space-x-2 p-2">
 
                                 <div className="flex items-center justify-center md:justify-start">
-                                    <img src="/moae-logo.svg" alt="MOAE Logo" className="h-5 w-5 rounded-full self-center" />
+                                    <img src={moaeLogo} alt="MOAE Logo" className="h-5 w-5 rounded-full self-center" />
                                     <span className="pl-2 text-white uppercase tracking-wide">MOAE</span>
                                 </div>
                             </a>

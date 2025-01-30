@@ -2,36 +2,33 @@ import { HashRouter as Router, Route, Routes, useLocation } from 'react-router-d
 import { createContext, useContext, useEffect, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import WorkflowPage from './pages/WorkflowPage';
 import themes from './styles/themes';
 import './index.css';
-
-const NAV_ITEMS = [
-  { name: "Computing", path: "/computing" },
-  { name: "Cooking", path: "/cooking" },
-  { name: "Music", path: "/music" },
-];
-
-const ThemeContext = createContext<{
-  category: string;
-  theme: typeof themes.computing;
-  setTheme: React.Dispatch<React.SetStateAction<typeof themes.computing>>;
-  navItems: typeof NAV_ITEMS
-}>(
-  {
-    category: "",
-    theme: themes.default,
-    setTheme: () => { },
-    navItems: NAV_ITEMS,
-  }
-);
+import { getDirectChildFolders } from './utils/file';
 
 function App() {
   const location = useLocation();
   const [theme, setTheme] = useState(themes.default);
   const [category, setCategory] = useState("");
+  const [navItems, setNavItems] = useState<{ name: string; path: string }[]>([]);
 
   useEffect(() => {
-    const matchedCategory = Object.keys(themes).find(category => location.pathname.startsWith(`/${category}`));
+    const { subcategories } = getDirectChildFolders("workflows");
+
+    const NAV_ITEMS = subcategories.map(category => ({
+      name: category.charAt(0).toUpperCase() + category.slice(1),
+      path: `/${category}`
+    }));
+
+    setNavItems(NAV_ITEMS);
+  }, []);
+
+  useEffect(() => {
+    const matchedCategory = Object.keys(themes).find(category =>
+      location.pathname.startsWith(`/${category}`)
+    );
+
     if (matchedCategory) {
       setTheme(themes[matchedCategory as keyof typeof themes]);
       setCategory(matchedCategory);
@@ -39,21 +36,20 @@ function App() {
       setTheme(themes.default);
       setCategory("");
     }
+
     Object.entries(theme).forEach(([key, value]) => {
       document.documentElement.style.setProperty(key, value);
     });
   }, [location.pathname, theme]);
 
   return (
-    <ThemeContext.Provider value={{ category, theme, setTheme, navItems: NAV_ITEMS }}>
+    <ThemeContext.Provider value={{ category, theme, setTheme, navItems }}>
       <div className="app-container min-h-screen flex flex-col w-full">
-        <Header navItems={NAV_ITEMS} />
-        <main className="flex-1 w-full max-w-7xl mx-auto p-4">
+        <Header navItems={navItems} />
+        <main className="flex-1 w-full max-w-7xl mx-auto">
           <Routes>
             <Route path="/" element={<h2>Welcome to Workflows</h2>} />
-            <Route path="/computing/*" element={<h2>Computing Workflows</h2>} />
-            <Route path="/cooking/*" element={<h2>Cooking Workflows</h2>} />
-            <Route path="/music/*" element={<h2>Music Workflows</h2>} />
+            <Route path="/:category" element={<WorkflowPage />} />
           </Routes>
         </main>
         <Footer />
@@ -61,6 +57,18 @@ function App() {
     </ThemeContext.Provider>
   );
 }
+
+const ThemeContext = createContext<{
+  category: string;
+  theme: typeof themes.computing;
+  setTheme: React.Dispatch<React.SetStateAction<typeof themes.computing>>;
+  navItems: { name: string; path: string }[];
+}>({
+  category: "",
+  theme: themes.default,
+  setTheme: () => {},
+  navItems: [],
+});
 
 export function useTheme() {
   return useContext(ThemeContext);
