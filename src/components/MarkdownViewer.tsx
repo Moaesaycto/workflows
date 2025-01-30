@@ -62,6 +62,15 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
                                     </code>
                                 );
                             },
+                            img: ({ src, alt }) => (
+                                <div className="flex justify-center my-4">
+                                    <img
+                                        src={src || ""}
+                                        alt={alt || ""}
+                                        className="max-w-full max-h-96 h-auto rounded-lg shadow-md"
+                                    />
+                                </div>
+                            ),
                         }}
                     >
                         {content}
