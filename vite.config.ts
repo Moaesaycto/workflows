@@ -13,6 +13,15 @@ export default defineConfig({
   base: '/workflows/', // Use your GitHub repository name here
   build: {
     outDir: 'dist', // Optional: Ensure output goes to the 'dist' folder
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor'; // Moves all dependencies into a separate chunk
+          }
+        }
+      }
+    }
   },
   assetsInclude: ['**/*.md'],
 })
