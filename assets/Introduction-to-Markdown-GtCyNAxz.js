@@ -96,19 +96,6 @@ Create links using this format:\r
 \r
 ---\r
 \r
-## Images\r
-\`\`\`md\r
-![Alt Text](./image.png)\r
-\`\`\`\r
-• **Example Output:**  \r
-![Example Image](./image.png)\r
-\r
-📌 **Note:**  \r
-- If your images are inside the **same folder** as your \`.md\` file, just use \`./image.png\`.  \r
-- Otherwise, put images in \`/public/images/\` and reference them as \`/images/example.png\`.\r
-\r
----\r
-\r
 ## Blockquotes\r
 Use \`>\` to create a **blockquote**:\r
 \`\`\`md\r
