@@ -47,7 +47,6 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
                                     p: ({ children }: { children?: React.ReactNode }) => {
                                         if (typeof children === "string") {
                                             if (children.match(/^\$\$(.*?)\$\$$/s) || children.match(/^\\\[(.*?)\\\]$/s)) {
-                                                // Block Math (Scrollable)
                                                 return (
                                                     <div className="overflow-x-auto w-full overflow-y-hidden horizontal-scroll">
                                                         <MathJax>{children}</MathJax>
@@ -55,7 +54,6 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
                                                 );
                                             }
                                             if (children.match(/\$(.*?)\$/)) {
-                                                // Inline Math (No Scroll)
                                                 return <MathJax inline>{children}</MathJax>;
                                             }
                                         }
@@ -100,6 +98,16 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
                                             {children}
                                         </td>
                                     ),
+                                    ul: ({ children }) => (
+                                        <ul className="list-disc list-inside pl-3">{children}</ul>
+                                    ),
+                                    ol: ({ children }) => (
+                                        <ol className="list-decimal list-inside pl-3">{children}</ol>
+                                    ),
+                                    li: ({ children }) => (
+                                        <li className="ml-3">{children}</li>
+                                    ),
+                                    hr: () => <hr className="my-8 border-gray-700" />,
                                 }}
                             >
                                 {content}

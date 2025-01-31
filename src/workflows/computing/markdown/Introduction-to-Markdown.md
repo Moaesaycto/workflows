@@ -11,7 +11,7 @@ Use `#` to create **headings**:
 ## This is a H2 heading
 ### This is a H3 heading
 ```
-• **Example Output:**
+ **Example Output:**
 # This is a H1 heading  
 ## This is a H2 heading  
 ### This is a H3 heading  
@@ -24,7 +24,7 @@ Use `#` to create **headings**:
 *Italic text*
 ~~Strikethrough~~
 ```
-• **Example Output:**  
+ **Example Output:**  
 **Bold text**  
 *Italic text*  
 ~~Strikethrough~~  
@@ -41,7 +41,7 @@ Funnily enough, Markdown does not have underlined text for some reason.
   - Sub-item 1
   - Sub-item 2
 ```
-• **Example Output:**  
+ **Example Output:**  
 - Item 1  
 - Item 2  
   - Sub-item 1  
@@ -53,7 +53,7 @@ Funnily enough, Markdown does not have underlined text for some reason.
 2. Second item
 3. Third item
 ```
-• **Example Output:**  
+ **Example Output:**  
 1. First item  
 2. Second item  
 3. Third item  
@@ -67,7 +67,7 @@ Use **backticks** (`) for inline and block code.
 ```md
 Use `print("Hello, world!")` in Python.
 ```
-• **Example Output:**  
+ **Example Output:**  
 Use `print("Hello, world!")` in Python.
 
 ### **Multi-line Code Blocks**
@@ -78,7 +78,7 @@ def hello():
     print("Hello, world!")
 ```
 ```
-• **Example Output:**
+ **Example Output:**
 ```python
 def hello():
     print("Hello, world!")
@@ -91,7 +91,7 @@ Create links using this format:
 ```md
 [Link Text](https://example.com)
 ```
-• **Example Output:**  
+ **Example Output:**  
 [Visit Example](https://www.apple.com/)
 
 ---
@@ -101,7 +101,7 @@ Use `>` to create a **blockquote**:
 ```md
 > This is a blockquote.
 ```
-• **Example Output:**
+ **Example Output:**
 > This is a blockquote.
 
 ---
@@ -116,7 +116,7 @@ Use pipes (`|`) to create **tables**:
 | Bob   | 30  | Canada  |
 ```
 
-• **Example Output:**
+ **Example Output:**
 
 | Name  | Age | Country |
 |-------|-----|---------|
@@ -139,7 +139,7 @@ For example, I have uploaded a simple [GIF](https://www.tumblr.com/unstickyhunte
 ![Spinning Burger](./example.webp)
 ```
 
-• **Example Output:**
+ **Example Output:**
 ![Spinning Burger](./example.webp)
 
 I will mostly handle this, just make sure to name the file something unique and consistent with the image you send/reference in your file.
@@ -151,20 +151,20 @@ I will mostly handle this, just make sure to name the file something unique and 
 **This site uses a custom equation format!**
 
 MathJax is a bit strange, and requires two backslashes to could as a single one. So, for a new line, you'd do `\\\\` instead of `\\`. You will not be able to use `$` or `$$`.
-- **Inline equations** use **`\\(` and `\\)`** like this:
+**Inline equations** use **`\\(` and `\\)`** like this:
   ```md
   The equation \\(E = mc^2\\) describes mass-energy equivalence.
   ```
-  • **Example Output:**  
+   **Example Output:**  
   The equation \\(E = mc^2\\) describes mass-energy equivalence.
 
-- **Block equations** use **`\\[` and `\\]`**, with a blank line before and after:
+**Block equations** use **`\\[` and `\\]`**, with a blank line before and after:
   ```md
   \\[  
       f(x) = x^2  
   \\]
   ```
-  • **Example Output:**
+   **Example Output:**
   \\[
   f(x) = x^2
   \\]
