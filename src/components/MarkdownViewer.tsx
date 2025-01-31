@@ -6,6 +6,7 @@ import remarkMath from "remark-math";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Clipboard } from "lucide-react";
 import { getMarkdownContent } from "../utils/file";
 import { useTheme } from "../App";
 import { isColorDark } from "../utils/color";
@@ -16,9 +17,9 @@ interface MarkdownViewerProps {
 
 const config = {
     tex: {
-      packages: { "[+]": ["base", "autoload", "mathtools"] }, // Enable 'mathtools' for \mathbf
+        packages: { "[+]": ["base", "autoload", "mathtools"] },
     },
-  };
+};
 
 export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
     const [content, setContent] = useState<string>("");
@@ -70,18 +71,7 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
                                             {children}
                                         </blockquote>
                                     ),
-                                    code({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode }) {
-                                        const match = /language-(\w+)/.exec(className || "");
-                                        return !inline && match ? (
-                                            <SyntaxHighlighter style={oneDark} language={match[1]} PreTag="div" {...props}>
-                                                {String(children).replace(/\n$/, "")}
-                                            </SyntaxHighlighter>
-                                        ) : (
-                                            <code className="bg-gray-800 text-red-400 px-1 py-0.5 rounded">
-                                                {children}
-                                            </code>
-                                        );
-                                    },
+                                    code: CodeBlock,
                                     img: ({ src, alt }) => (
                                         <img
                                             src={src || ""}
@@ -120,7 +110,6 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
                             </ReactMarkdown>
                         </MathJax>
                     </div>
-
                     <div className="my-4 flex justify-between items-center">
                         <div className="text-xl italic">
                             You have finished this article. Return to the {category} page to browse more articles.
@@ -135,6 +124,48 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
 
 function capitalize(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function CodeBlock({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode }) {
+    const match = /language-(\w+)/.exec(className || "");
+    const language = match ? match[1] : "text";
+    const [copied, setCopied] = useState(false);
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(String(children).replace(/\n$/, ""))
+            .then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            });
+    };
+
+    return !inline && match ? (
+        <div className="relative my-4 rounded-md overflow-hidden border border-gray-700 bg-gray-800">
+            <div className="flex justify-between items-center bg-gray-700 text-gray-300 px-3 py-1 text-sm font-semibold">
+                <span>{language.toUpperCase()}</span>
+                <button
+                    onClick={copyToClipboard}
+                    className="flex items-center space-x-1 text-gray-400 hover:text-white transition"
+                >
+                    <Clipboard size={16} />
+                    <span className="text-xs">{copied ? "Copied!" : "Copy"}</span>
+                </button>
+            </div>
+            <SyntaxHighlighter
+                style={oneDark}
+                language={language}
+                PreTag="div"
+                className="!m-0"
+                {...props}
+            >
+                {String(children).replace(/\n$/, "")}
+            </SyntaxHighlighter>
+        </div>
+    ) : (
+        <code className="bg-gray-800 text-red-400 px-1 py-0.5 rounded">
+            {children}
+        </code>
+    );
 }
 
 interface ReturnButtonProps {
