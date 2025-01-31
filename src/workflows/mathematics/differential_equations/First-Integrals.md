@@ -3,21 +3,21 @@
 A function \\(G:\\mathbb{R}^N \\to \\mathbb{R}\\) is a **first integral** (or constant of the motion) for the system of ODEs:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = \\boldsymbol{F}(\\boldsymbol{x})
+    \\frac{d\\mathbf{x}}{dt} = \\mathbf{F}(\\mathbf{x})
 \\]
 
-if \\(G(\\boldsymbol{x}(t))\\) is constant for every solution \\(\\boldsymbol{x}(t).\\)
+if \\(G(\\mathbf{x}(t))\\) is constant for every solution \\(\\mathbf{x}(t).\\)
 
 By the chain rule:
 
 \\[
-    \\frac{d}{dt}G(\\boldsymbol{x}(t)) = \\sum_{j = 1}^N \\frac{\\partial G}{\\partial x_j} \\frac{dx_j}{dt} = \\nabla G(\\boldsymbol{x}) \\cdot \\frac{d\\boldsymbol{x}}{dt} = \\nabla G(\\boldsymbol{x}) \\cdot \\boldsymbol{F}(\\boldsymbol{x}).
+    \\frac{d}{dt}G(\\mathbf{x}(t)) = \\sum_{j = 1}^N \\frac{\\partial G}{\\partial x_j} \\frac{dx_j}{dt} = \\nabla G(\\mathbf{x}) \\cdot \\frac{d\\mathbf{x}}{dt} = \\nabla G(\\mathbf{x}) \\cdot \\mathbf{F}(\\mathbf{x}).
 \\]
 
 Geometrically, this means that \\(G\\) is a first integral if and only if:
 
 \\[
-    \\nabla G(\\boldsymbol{x}) \\perp \\boldsymbol{F}(\\boldsymbol{x}) \\quad \\text{for all } \\boldsymbol{x}.
+    \\nabla G(\\mathbf{x}) \\perp \\mathbf{F}(\\mathbf{x}) \\quad \\text{for all } \\mathbf{x}.
 \\]
 
 ---
@@ -38,13 +38,13 @@ with the first integral function \\(G(x,y) = x^2 + y^2.\\)
 Let:
 
 \\[
-    \\boldsymbol{F}(x,y) = \\begin{bmatrix}-y\\\\x\\end{bmatrix}.
+    \\mathbf{F}(x,y) = \\begin{bmatrix}-y\\\\x\\end{bmatrix}.
 \\]
 
 We can see that:
 
 \\[
-    \\nabla G \\cdot \\boldsymbol{F} = \\begin{bmatrix}2x\\\\2y\\end{bmatrix} \\cdot \\begin{bmatrix}-y\\\\x\\end{bmatrix} = 0.
+    \\nabla G \\cdot \\mathbf{F} = \\begin{bmatrix}2x\\\\2y\\end{bmatrix} \\cdot \\begin{bmatrix}-y\\\\x\\end{bmatrix} = 0.
 \\]
 
 Equivalently:
@@ -57,7 +57,7 @@ Equivalently:
 
 ## Partial Solutions
 
-A first integral provides a **partial solution** of the ODE. Setting \\(C = G(\\boldsymbol{x}_0),\\) we know that \\(\\boldsymbol{x}(t)\\) is confined to the surface \\(G(\\boldsymbol{x}) = C.\\)
+A first integral provides a **partial solution** of the ODE. Setting \\(C = G(\\mathbf{x}_0),\\) we know that \\(\\mathbf{x}(t)\\) is confined to the surface \\(G(\\mathbf{x}) = C.\\)
 
 If \\(N=2,\\) the equation \\(G(x,y) = C\\) implicitly gives \\(y = g(x),\\) so:
 
@@ -73,13 +73,13 @@ and \\(F_1\\) becomes a known function of \\(x\\) alone. If we can evaluate:
 
 to obtain \\(t=t(x),\\) then implicitly we know \\(x = x(t)\\) and finally \\(y = g(x(t)).\\)
 
-Now, suppose \\(N > 2\\) and we know several (functionally independent) first integrals \\(G_1, G_2, \\dots, G_k.\\) Then the solution \\(\\boldsymbol{x}(t)\\) must lie on the intersection of the surfaces:
+Now, suppose \\(N > 2\\) and we know several (functionally independent) first integrals \\(G_1, G_2, \\dots, G_k.\\) Then the solution \\(\\mathbf{x}(t)\\) must lie on the intersection of the surfaces:
 
 \\[
-    G_j(\\boldsymbol{x}) = C_j, \\quad 1 \\leq j \\leq k,
+    G_j(\\mathbf{x}) = C_j, \\quad 1 \\leq j \\leq k,
 \\]
 
-where \\(C_j = G_j(\\boldsymbol{x}_0).\\) We necessarily have \\(k \\leq N-1.\\) If \\(k = N-1,\\) then the **implicit function theorem** gives \\(x_j = g_j(x_1)\\) for \\(2 \\leq j \\leq N,\\) and thus \\(F_1(\\boldsymbol{x})\\) becomes a known function of \\(x_1.\\)
+where \\(C_j = G_j(\\mathbf{x}_0).\\) We necessarily have \\(k \\leq N-1.\\) If \\(k = N-1,\\) then the **implicit function theorem** gives \\(x_j = g_j(x_1)\\) for \\(2 \\leq j \\leq N,\\) and thus \\(F_1(\\mathbf{x})\\) becomes a known function of \\(x_1.\\)
 
 As before:
 

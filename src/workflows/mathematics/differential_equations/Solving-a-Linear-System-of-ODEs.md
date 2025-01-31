@@ -3,57 +3,57 @@
 We say that the \\(N \\times N\\) first-order system of ODEs:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = \\boldsymbol{F}(\\boldsymbol{x})
+    \\frac{d\\mathbf{x}}{dt} = \\mathbf{F}(\\mathbf{x})
 \\]
 
 is **linear** if the RHS has the form:
 
 \\[
-    \\boldsymbol{F}(\\boldsymbol{x},t) = A(t)\\boldsymbol{x} + \\boldsymbol{b}(t),
+    \\mathbf{F}(\\mathbf{x},t) = A(t)\\mathbf{x} + \\mathbf{b}(t),
 \\]
 
-for some \\(N \\times N\\) matrix-valued function \\(A(t) = [a_{ij}(t)]\\) and a vector-valued function \\(\\boldsymbol{b}(t) = [b_i(t)].\\) The system is **autonomous** precisely when \\(A\\) and \\(\\boldsymbol{b}\\) are constant.
+for some \\(N \\times N\\) matrix-valued function \\(A(t) = [a_{ij}(t)]\\) and a vector-valued function \\(\\mathbf{b}(t) = [b_i(t)].\\) The system is **autonomous** precisely when \\(A\\) and \\(\\mathbf{b}\\) are constant.
 
-If the elements of \\(A(t)\\) and components of \\(\\boldsymbol{b}(t)\\) are continuous for \\(0 \\leq t \\leq T,\\) then the linear initial-value problem:
+If the elements of \\(A(t)\\) and components of \\(\\mathbf{b}(t)\\) are continuous for \\(0 \\leq t \\leq T,\\) then the linear initial-value problem:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = A(t)\\boldsymbol{x} + \\boldsymbol{b}(t), \\quad 0 \\leq t \\leq T, \\quad \\boldsymbol{x}(0) = \\boldsymbol{x}_0,
+    \\frac{d\\mathbf{x}}{dt} = A(t)\\mathbf{x} + \\mathbf{b}(t), \\quad 0 \\leq t \\leq T, \\quad \\mathbf{x}(0) = \\mathbf{x}_0,
 \\]
 
-has a unique solution \\(\\boldsymbol{x}(t)\\) for \\(0 \\leq t \\leq T.\\)
+has a unique solution \\(\\mathbf{x}(t)\\) for \\(0 \\leq t \\leq T.\\)
 
-Let's consider investigating the special case where \\(A\\) is constant and \\(\\boldsymbol{b}(t) \\equiv 0\\):
+Let's consider investigating the special case where \\(A\\) is constant and \\(\\mathbf{b}(t) \\equiv 0\\):
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = A\\boldsymbol{x}.
+    \\frac{d\\mathbf{x}}{dt} = A\\mathbf{x}.
 \\]
 
 ---
 
 ## Eigensystem Solution
 
-If \\(\\boldsymbol{v}\\) is a constant vector and \\(A\\boldsymbol{v} = \\lambda \\boldsymbol{v},\\) we define \\(\\boldsymbol{x}(t) = e^{\\lambda t}\\boldsymbol{v}.\\) Then:
+If \\(\\mathbf{v}\\) is a constant vector and \\(A\\mathbf{v} = \\lambda \\mathbf{v},\\) we define \\(\\mathbf{x}(t) = e^{\\lambda t}\\mathbf{v}.\\) Then:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = \\lambda e^{\\lambda t}\\boldsymbol{v} = e^{\\lambda t}(A\\boldsymbol{v}) = A(e^{\\lambda t}\\boldsymbol{v}) = A\\boldsymbol{x},
+    \\frac{d\\mathbf{x}}{dt} = \\lambda e^{\\lambda t}\\mathbf{v} = e^{\\lambda t}(A\\mathbf{v}) = A(e^{\\lambda t}\\mathbf{v}) = A\\mathbf{x},
 \\]
 
-that is, \\(\\boldsymbol{x}\\) is a solution of:
+that is, \\(\\mathbf{x}\\) is a solution of:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = A\\boldsymbol{x}.
+    \\frac{d\\mathbf{x}}{dt} = A\\mathbf{x}.
 \\]
 
-If \\(A\\boldsymbol{v}_j = \\lambda_j \\boldsymbol{v}_j\\) for \\(1 \\leq j \\leq N,\\) then the linear combination:
+If \\(A\\mathbf{v}_j = \\lambda_j \\mathbf{v}_j\\) for \\(1 \\leq j \\leq N,\\) then the linear combination:
 
 \\[
-    \\boldsymbol{x}(t) = \\sum_{j=1}^N c_je^{\\lambda_j t}\\boldsymbol{v}_j
+    \\mathbf{x}(t) = \\sum_{j=1}^N c_je^{\\lambda_j t}\\mathbf{v}_j
 \\]
 
-is also a solution because the ODE is linear and homogeneous. Provided the \\(\\boldsymbol{v}_j\\) are linearly independent, the above formula is the **general solution** because given any \\(\\boldsymbol{x}_0 \\in \\mathbb{R}^N,\\) there exist unique \\(c_j\\) such that:
+is also a solution because the ODE is linear and homogeneous. Provided the \\(\\mathbf{v}_j\\) are linearly independent, the above formula is the **general solution** because given any \\(\\mathbf{x}_0 \\in \\mathbb{R}^N,\\) there exist unique \\(c_j\\) such that:
 
 \\[
-    \\boldsymbol{x}(0) = \\sum_{j=1}^N c_j\\boldsymbol{v}_j = \\boldsymbol{x}_0.
+    \\mathbf{x}(0) = \\sum_{j=1}^N c_j\\mathbf{v}_j = \\mathbf{x}_0.
 \\]
 
 ---
@@ -77,12 +77,12 @@ Here, we have:
     A = \\begin{bmatrix}-5&2\\\\-6&3\\end{bmatrix},
 \\]
 
-with eigenvalues \\(\\lambda_1 = -3, \\boldsymbol{v}_1 = \\begin{bmatrix}1\\\\1\\end{bmatrix}\\) and \\(\\lambda_2 = 1, \\boldsymbol{v}_2 = \\begin{bmatrix}1\\\\3\\end{bmatrix}.\\)
+with eigenvalues \\(\\lambda_1 = -3, \\mathbf{v}_1 = \\begin{bmatrix}1\\\\1\\end{bmatrix}\\) and \\(\\lambda_2 = 1, \\mathbf{v}_2 = \\begin{bmatrix}1\\\\3\\end{bmatrix}.\\)
 
 Thus, the general solution is:
 
 \\[
-    \\boldsymbol{x}(t) = c_1e^{-3t} \\begin{bmatrix}1\\\\1\\end{bmatrix} + c_2e^t\\begin{bmatrix}1\\\\3\\end{bmatrix}.
+    \\mathbf{x}(t) = c_1e^{-3t} \\begin{bmatrix}1\\\\1\\end{bmatrix} + c_2e^t\\begin{bmatrix}1\\\\3\\end{bmatrix}.
 \\]
 
 The initial conditions give us \\(c_1 = 4\\) and \\(c_2 = 1,\\) so:
@@ -120,7 +120,7 @@ Find the solution to the system:
 given the initial condition:
 
 \\[
-    \\boldsymbol{y}(0) = \\begin{bmatrix} 3\\\\-5\\end{bmatrix}.
+    \\mathbf{y}(0) = \\begin{bmatrix} 3\\\\-5\\end{bmatrix}.
 \\]
 
 The coefficient matrix is:
@@ -132,13 +132,13 @@ The coefficient matrix is:
 with eigenvalues \\(\\lambda_1 = 4, \\lambda_2 = -3\\) and respective eigenvectors:
 
 \\[
-    \\boldsymbol{v}_1 = \\begin{bmatrix}2\\\\1\\end{bmatrix}, \\quad \\boldsymbol{v}_2 = \\begin{bmatrix}3\\\\1 \\end{bmatrix}.
+    \\mathbf{v}_1 = \\begin{bmatrix}2\\\\1\\end{bmatrix}, \\quad \\mathbf{v}_2 = \\begin{bmatrix}3\\\\1 \\end{bmatrix}.
 \\]
 
 Thus, the general solution is:
 
 \\[
-    \\boldsymbol{y}(t) = \\alpha e^{4t} \\begin{bmatrix} 2\\\\1 \\end{bmatrix} + \\beta e^{-3t} \\begin{bmatrix} 3\\\\1\\end{bmatrix}.
+    \\mathbf{y}(t) = \\alpha e^{4t} \\begin{bmatrix} 2\\\\1 \\end{bmatrix} + \\beta e^{-3t} \\begin{bmatrix} 3\\\\1\\end{bmatrix}.
 \\]
 
 Solving for \\(\\alpha\\) and \\(\\beta\\) using the initial condition gives:

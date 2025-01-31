@@ -3,7 +3,7 @@
 A (first-order) **dynamical system** is formulated as:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = \\boldsymbol{F}(\\boldsymbol{x}).
+    \\frac{d\\mathbf{x}}{dt} = \\mathbf{F}(\\mathbf{x}).
 \\]
 
 Any first-order system of \\(N\\) ODEs in the form:
@@ -20,39 +20,39 @@ Any first-order system of \\(N\\) ODEs in the form:
 can be written in vector notation as:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = \\boldsymbol{F}(\\boldsymbol{x}), \\quad \\boldsymbol{x}(0) = \\boldsymbol{x}_0.
+    \\frac{d\\mathbf{x}}{dt} = \\mathbf{F}(\\mathbf{x}), \\quad \\mathbf{x}(0) = \\mathbf{x}_0.
 \\]
 
-The system of ODEs is determined by the **vector field** \\(\\boldsymbol{F}:\\mathbb{R}^N \\to \\mathbb{R}^N.\\)
+The system of ODEs is determined by the **vector field** \\(\\mathbf{F}:\\mathbb{R}^N \\to \\mathbb{R}^N.\\)
 
 Our system is said to be **autonomous** if it is in the form:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = \\boldsymbol{F}(\\boldsymbol{x}).
+    \\frac{d\\mathbf{x}}{dt} = \\mathbf{F}(\\mathbf{x}).
 \\]
 
-In a **non-autonomous** system, \\(\\boldsymbol{F}\\) will depend explicitly on \\(t\\):
+In a **non-autonomous** system, \\(\\mathbf{F}\\) will depend explicitly on \\(t\\):
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = \\boldsymbol{F}(\\boldsymbol{x}, t).
+    \\frac{d\\mathbf{x}}{dt} = \\mathbf{F}(\\mathbf{x}, t).
 \\]
 
 Given a non-autonomous system:
 
 \\[
-    \\frac{d\\boldsymbol{x}}{dt} = \\boldsymbol{F}(\\boldsymbol{x}, t),
+    \\frac{d\\mathbf{x}}{dt} = \\mathbf{F}(\\mathbf{x}, t),
 \\]
 
 let:
 
 \\[
-    \\boldsymbol{y} = \\begin{bmatrix}\\boldsymbol{x} \\\\ t \\end{bmatrix}, \\quad \\boldsymbol{G}(\\boldsymbol{y}) = \\begin{bmatrix}\\boldsymbol{F}(\\boldsymbol{x}, t)\\\\1\\end{bmatrix}.
+    \\mathbf{y} = \\begin{bmatrix}\\mathbf{x} \\\\ t \\end{bmatrix}, \\quad \\mathbf{G}(\\mathbf{y}) = \\begin{bmatrix}\\mathbf{F}(\\mathbf{x}, t)\\\\1\\end{bmatrix}.
 \\]
 
-If \\(\\boldsymbol{x} = \\boldsymbol{x}(t)\\) is a solution of this system, then \\(\\boldsymbol{y} = \\boldsymbol{y}(t)\\) is a solution of the autonomous system:
+If \\(\\mathbf{x} = \\mathbf{x}(t)\\) is a solution of this system, then \\(\\mathbf{y} = \\mathbf{y}(t)\\) is a solution of the autonomous system:
 
 \\[
-    \\frac{d\\boldsymbol{y}}{dt} = \\begin{bmatrix} d\\boldsymbol{x}/dt\\\\dt/dt\\end{bmatrix} = \\begin{bmatrix}\\boldsymbol{F}(\\boldsymbol{x}, t)\\\\1\\end{bmatrix},
+    \\frac{d\\mathbf{y}}{dt} = \\begin{bmatrix} d\\mathbf{x}/dt\\\\dt/dt\\end{bmatrix} = \\begin{bmatrix}\\mathbf{F}(\\mathbf{x}, t)\\\\1\\end{bmatrix},
 \\]
 
 and vice versa.
@@ -79,10 +79,10 @@ For any closed and bounded interval \\(I = [a,b],\\) if \\(f\\) is \\(C^1\\) on 
 
 is a Lipschitz constant for \\(f\\) on \\(I.\\) Note that \\(f \\in C^k\\) implies that \\(f\\) is \\(k\\) times differentiable.
 
-More generally, a vector field \\(\\boldsymbol{F}: S \\to \\mathbb{R}^N\\) is Lipschitz on \\(S \\in \\mathbb{R}^N\\) if:
+More generally, a vector field \\(\\mathbf{F}: S \\to \\mathbb{R}^N\\) is Lipschitz on \\(S \\in \\mathbb{R}^N\\) if:
 
 \\[
-    \\|\\boldsymbol{F}(\\boldsymbol{x}) - \\boldsymbol{F}(\\boldsymbol{y})\\| \\leq L \\|\\boldsymbol{x} - \\boldsymbol{y}\\|.
+    \\|\\mathbf{F}(\\mathbf{x}) - \\mathbf{F}(\\mathbf{y})\\| \\leq L \\|\\mathbf{x} - \\mathbf{y}\\|.
 \\]
 
 Here, our norm is the **Euclidean norm** on \\(\\mathbb{R}^N.\\)

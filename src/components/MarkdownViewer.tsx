@@ -14,6 +14,12 @@ interface MarkdownViewerProps {
     filePath: string;
 }
 
+const config = {
+    tex: {
+      packages: { "[+]": ["base", "autoload", "mathtools"] }, // Enable 'mathtools' for \mathbf
+    },
+  };
+
 export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
     const [content, setContent] = useState<string>("");
 
@@ -28,7 +34,7 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
     const articleRoute: string = `${capitalize(category)} / ${capitalize(subcategory)} / ${capitalize(articleTitle)}`.replace(/_/g, " ");
 
     return (
-        <MathJaxContext>
+        <MathJaxContext config={config}>
             <div>
                 <div className="p-4">
                     <div className="flex flex-row w-full justify-between items-center bg-zinc-900 p-4 rounded-lg mb-3 gap-4">
