@@ -129,13 +129,13 @@ Use pipes (`|`) to create **tables**:
 
 If you intend on including any, send through the image(s) you have as files, and include it 
 
-```plaintext
+```md
 ![Image Alt](path/to/image.png)
 ```
 
 For example, I have uploaded a simple [GIF](https://www.tumblr.com/unstickyhunter/770228651213078528) to demonstrate. The file is already loaded into the media for the site as:
 
-```plaintext
+```md
 ![Spinning Burger](./example.webp)
 ```
 
