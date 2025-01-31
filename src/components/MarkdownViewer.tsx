@@ -10,18 +10,22 @@ import { getMarkdownContent } from "../utils/file";
 import { useTheme } from "../App";
 import { isColorDark } from "../utils/color";
 
-export default function MarkdownViewer({ filePath }: { filePath: string }) {
-    const [content, setContent] = useState("");
+interface MarkdownViewerProps {
+    filePath: string;
+}
+
+export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
+    const [content, setContent] = useState<string>("");
 
     useEffect(() => {
         getMarkdownContent(filePath).then(setContent);
     }, [filePath]);
 
-    const parts = filePath.split("/");
-    const category = parts[3];
-    const subcategory = parts[4];
-    const articleTitle = parts[5].replace(".md", "").replace(/-/g, " ");
-    const articleRoute = `${category.charAt(0).toUpperCase() + category.slice(1)} / ${subcategory.charAt(0).toUpperCase() + subcategory.slice(1)} / ${articleTitle.charAt(0).toUpperCase() + articleTitle.slice(1)}`.replace(/_/g, " ");;
+    const parts: string[] = filePath.split("/");
+    const category: string = parts[3] || "";
+    const subcategory: string = parts[4] || "";
+    const articleTitle: string = (parts[5] || "").replace(".md", "").replace(/-/g, " ");
+    const articleRoute: string = `${capitalize(category)} / ${capitalize(subcategory)} / ${capitalize(articleTitle)}`.replace(/_/g, " ");
 
     return (
         <MathJaxContext>
@@ -40,16 +44,29 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
                                     h1: ({ children }) => <h1 className="text-3xl font-bold">{children}</h1>,
                                     h2: ({ children }) => <h2 className="text-2xl font-semibold mt-10">{children}</h2>,
                                     h3: ({ children }) => <h3 className="text-xl font-medium mt-4">{children}</h3>,
-                                    p: ({ children }) => <p className="text-lg text-gray-300 mt-2">{children}</p>,
-                                    ul: ({ children }) => <ul className="list-disc ml-5 mt-2">{children}</ul>,
-                                    ol: ({ children }) => <ol className="list-decimal ml-5 mt-2">{children}</ol>,
-                                    hr: () => <hr className="my-8 border-gray-700" />,
+                                    p: ({ children }: { children?: React.ReactNode }) => {
+                                        if (typeof children === "string") {
+                                            if (children.match(/^\$\$(.*?)\$\$$/s) || children.match(/^\\\[(.*?)\\\]$/s)) {
+                                                // Block Math (Scrollable)
+                                                return (
+                                                    <div className="overflow-x-auto w-full overflow-y-hidden horizontal-scroll">
+                                                        <MathJax>{children}</MathJax>
+                                                    </div>
+                                                );
+                                            }
+                                            if (children.match(/\$(.*?)\$/)) {
+                                                // Inline Math (No Scroll)
+                                                return <MathJax inline>{children}</MathJax>;
+                                            }
+                                        }
+                                        return <p className="text-lg text-gray-300 mt-2">{children}</p>;
+                                    },
                                     blockquote: ({ children }) => (
                                         <blockquote className="border-l-4 border-gray-500 pl-4 italic text-gray-400">
                                             {children}
                                         </blockquote>
                                     ),
-                                    code({ node, inline, className, children, ...props }: { node?: any, inline?: boolean, className?: string, children?: React.ReactNode }) {
+                                    code({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode }) {
                                         const match = /language-(\w+)/.exec(className || "");
                                         return !inline && match ? (
                                             <SyntaxHighlighter style={oneDark} language={match[1]} PreTag="div" {...props}>
@@ -102,7 +119,15 @@ export default function MarkdownViewer({ filePath }: { filePath: string }) {
     );
 }
 
-const ReturnButton = ({ category }: { category: string }) => {
+function capitalize(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+interface ReturnButtonProps {
+    category: string;
+}
+
+const ReturnButton = ({ category }: ReturnButtonProps) => {
     const navigate = useNavigate();
     const { theme } = useTheme();
 
@@ -112,13 +137,13 @@ const ReturnButton = ({ category }: { category: string }) => {
             onClick={() => navigate(`/${category}`)}
             style={{
                 backgroundColor: theme["--secondary-color"],
-                color: isColorDark(theme["--secondary-color"]) ? "#ffffff" : "#000000"
+                color: isColorDark(theme["--secondary-color"]) ? "#ffffff" : "#000000",
             }}
         >
             <span className="mr-2 transition-transform duration-300 transform group-hover:-translate-x-1">
                 ←
             </span>
-            Back to {category.charAt(0).toUpperCase() + category.slice(1)}
+            Back to {capitalize(category)}
         </button>
     );
 };
