@@ -1,12 +1,12 @@
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getDirectChildFolders } from "../utils/file";
 import CollapsibleSection from "../components/CollapsibleSection";
 import SearchBar from "../components/SearchBar";
 import FilterSubcategories from "../components/FilterSubcategories";
 import SortButton from "../components/SortButton";
 
-function useNumberOfColumns(searchQuery: string) {
+function useNumberOfColumns(searchQuery: string): number {
   const [columns, setColumns] = useState(3);
 
   useEffect(() => {
@@ -27,7 +27,6 @@ function useNumberOfColumns(searchQuery: string) {
 
     window.addEventListener("resize", updateColumns);
     updateColumns();
-
     return () => {
       window.removeEventListener("resize", updateColumns);
     };
@@ -36,13 +35,25 @@ function useNumberOfColumns(searchQuery: string) {
   return columns;
 }
 
-export default function WorkflowPage() {
+interface StyleProps {
+  backgroundColor?: string;
+  iconBackgroundColor?: string;
+  articleBackgroundColor?: string;
+}
+
+interface SubcategoryData {
+  subcategory: string;
+  files: string[];
+  style?: StyleProps;
+  icon?: string;
+}
+
+export default function WorkflowPage(): JSX.Element {
   const location = useLocation();
+  const navigate = useNavigate();
   const category = location.pathname.replace("/", "");
 
-  const [subcategories, setSubcategories] = useState<
-    { subcategory: string; files: string[]; style?: any; icon?: string }[]
-  >([]);
+  const [subcategories, setSubcategories] = useState<SubcategoryData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortAsc, setSortAsc] = useState(true);
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
@@ -51,7 +62,10 @@ export default function WorkflowPage() {
 
   useEffect(() => {
     if (category) {
-      const { subcategories, files, styles, icons } = getDirectChildFolders("workflows", category);
+      const { subcategories, files, styles, icons } = getDirectChildFolders(
+        "workflows",
+        category
+      );
       setSubcategories(
         subcategories.map((sub) => ({
           subcategory: sub,
@@ -75,17 +89,22 @@ export default function WorkflowPage() {
     }))
     .filter(({ subcategory, files }) => {
       const matchesSelected =
-        selectedSubcategories.length === 0 || selectedSubcategories.includes(subcategory);
+        selectedSubcategories.length === 0 ||
+        selectedSubcategories.includes(subcategory);
 
       return files.length > 0 && matchesSelected;
     });
 
   const sortedSubcategories = [...filteredSubcategories].sort((a, b) =>
-    sortAsc ? a.subcategory.localeCompare(b.subcategory) : b.subcategory.localeCompare(a.subcategory)
+    sortAsc
+      ? a.subcategory.localeCompare(b.subcategory)
+      : b.subcategory.localeCompare(a.subcategory)
   );
 
-  const columnData: typeof sortedSubcategories[] = Array.from({ length: columns }, () => []);
-
+  const columnData: SubcategoryData[][] = Array.from(
+    { length: columns },
+    () => []
+  );
   sortedSubcategories.forEach((item, index) => {
     const colIndex = index % columns;
     columnData[colIndex].push(item);
@@ -114,9 +133,16 @@ export default function WorkflowPage() {
                   title={subcategory}
                   icon={icon}
                   style={style}
-                  files={files}
-                  category={category}
-                  subcategory={subcategory}
+                  items={files}
+                  isSearching={!!searchQuery}
+                  onItemClick={(fileName) =>
+                    navigate(
+                      `/${category}/${subcategory}/${fileName.replace(
+                        ".md",
+                        ""
+                      )}`
+                    )
+                  }
                 />
               ))}
             </div>
