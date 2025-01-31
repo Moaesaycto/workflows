@@ -79,21 +79,25 @@ export default function WorkflowPage(): JSX.Element {
   }, [category]);
 
   const filteredSubcategories = subcategories
-    .map(({ subcategory, files, style, icon }) => ({
+  .map(({ subcategory, files, style, icon }) => {
+    const tokens = searchQuery.toLowerCase().split(/\s+/).filter(Boolean); // Tokenizing query
+    return {
       subcategory,
       files: files.filter((file) =>
-        file.toLowerCase().includes(searchQuery.toLowerCase())
+        tokens.every((token) => file.toLowerCase().includes(token)) // Check if all tokens match
       ),
       style,
       icon,
-    }))
-    .filter(({ subcategory, files }) => {
-      const matchesSelected =
-        selectedSubcategories.length === 0 ||
-        selectedSubcategories.includes(subcategory);
+    };
+  })
+  .filter(({ subcategory, files }) => {
+    const matchesSelected =
+      selectedSubcategories.length === 0 ||
+      selectedSubcategories.includes(subcategory);
 
-      return files.length > 0 && matchesSelected;
-    });
+    return files.length > 0 && matchesSelected;
+  });
+
 
   const sortedSubcategories = [...filteredSubcategories].sort((a, b) =>
     sortAsc
