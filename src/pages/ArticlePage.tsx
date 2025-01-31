@@ -23,7 +23,7 @@ export default function ArticlePage() {
 
 const LoadingScreen = () => {
   return (
-    <div className="flex flex-col items-center justify-center text-center pt-10">
+    <div className="flex flex-col items-center justify-center text-center py-10">
       <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
       <p className="mt-4 text-lg font-medium text-gray-400">Loading article...</p>
     </div>

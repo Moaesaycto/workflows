@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { isColorDark } from "../utils/color";
+import { useNavigate } from "react-router-dom";
 
 interface CollapsibleSectionProps {
   title: string;
   icon?: string;
   style?: any;
-  children: React.ReactNode;
-  isOpenByDefault?: boolean;
+  files: string[];
+  category: string;
+  subcategory: string;
 }
 
-const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({ title, icon, style, children, isOpenByDefault = false }) => {
-  const [isOpen, setIsOpen] = useState(isOpenByDefault);
-
-  useEffect(() => {
-    setIsOpen(isOpenByDefault);
-  }, [isOpenByDefault]);
+const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
+  title,
+  icon,
+  style,
+  files,
+  category,
+  subcategory,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const textColor = style?.backgroundColor && isColorDark(style.backgroundColor) ? "#ffffff" : "#000000";
 
@@ -50,7 +56,21 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({ title, icon, st
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            {children}
+            {files.map((file) => (
+              <div
+                key={file}
+                className="m-1 py-1 px-3 rounded-lg cursor-pointer"
+                style={{
+                  backgroundColor: style.articleBackgroundColor,
+                  color: isColorDark(style.articleBackgroundColor) ? "#ffffff" : "#000000",
+                }}
+                onClick={() =>
+                  navigate(`/${category}/${subcategory}/${file.replace(".md", "")}`)
+                }
+              >
+                {file.replace(".md", "").replace(/-/g, " ")}
+              </div>
+            ))}
           </motion.ul>
         )}
       </AnimatePresence>

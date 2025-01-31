@@ -35,15 +35,15 @@ function Header({ navItems }: HeaderProps) {
     return (
         <header className="text-white shadow-md w-full bg-zinc-900">
             <div className="pt-6 pb-3 px-6 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-                <div className="flex items-center space-x-4">
-                    <Link to="/">
-                        <img src={logo} alt="Workflows Logo" className="h-12 w-12" />
+                <div className="flex items-center space-x-4 md:space-x-4">
+                    <Link to="/" className="hidden sm:block">
+                        <img src={logo} alt="Workflows Logo" className="h-12 w-12 md:h-12 md:w-12 h-8 w-8" />
                     </Link>
                     <div>
-                        <h1 className="text-3xl font-extrabold tracking-wide" style={{ fontFamily: "Orbitron, sans-serif" }}>
+                        <h1 className="text-3xl font-extrabold tracking-wide md:text-3xl text-xl" style={{ fontFamily: "Orbitron, sans-serif" }}>
                             Workflows
                         </h1>
-                        <p className="text-lg text-gray-300">Organize and streamline your knowledge</p>
+                        <p className="text-lg text-gray-300 md:text-lg text-sm">Organize and streamline your knowledge</p>
                     </div>
                 </div>
                 <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>

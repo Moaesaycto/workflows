@@ -1,8 +1,7 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState, } from "react";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { getDirectChildFolders } from "../utils/file";
 import CollapsibleSection from "../components/CollapsibleSection";
-import { isColorDark } from "../utils/color";
 import SearchBar from "../components/SearchBar";
 import FilterSubcategories from "../components/FilterSubcategories";
 import SortButton from "../components/SortButton";
@@ -39,7 +38,6 @@ function useNumberOfColumns(searchQuery: string) {
 
 export default function WorkflowPage() {
   const location = useLocation();
-  const navigate = useNavigate();
   const category = location.pathname.replace("/", "");
 
   const [subcategories, setSubcategories] = useState<
@@ -111,32 +109,15 @@ export default function WorkflowPage() {
           {columnData.map((col, colIdx) => (
             <div key={colIdx} className="flex-1 space-y-4">
               {col.map(({ subcategory, files, style, icon }) => (
-                <div key={subcategory}>
-                  <CollapsibleSection
-                    title={subcategory}
-                    icon={icon}
-                    style={style}
-                    isOpenByDefault={!!searchQuery}
-                  >
-                    {files.map((file) => (
-                      <div
-                        key={file}
-                        className="m-1 py-1 px-3 rounded-lg cursor-pointer"
-                        style={{
-                          backgroundColor: style.articleBackgroundColor,
-                          color: isColorDark(style.articleBackgroundColor)
-                            ? "#ffffff"
-                            : "#000000",
-                        }}
-                        onClick={() =>
-                          navigate(`/${category}/${subcategory}/${file.replace(".md", "")}`)
-                        }
-                      >
-                        {file.replace(".md", "").replace(/-/g, " ")}
-                      </div>
-                    ))}
-                  </CollapsibleSection>
-                </div>
+                <CollapsibleSection
+                  key={subcategory}
+                  title={subcategory}
+                  icon={icon}
+                  style={style}
+                  files={files}
+                  category={category}
+                  subcategory={subcategory}
+                />
               ))}
             </div>
           ))}
