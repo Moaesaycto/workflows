@@ -109,7 +109,7 @@ Use \`>\` to create a **blockquote**:\r
 ## Tables\r
 Use pipes (\`|\`) to create **tables**:\r
 \r
-\`\`\`plaintext\r
+\`\`\`md\r
 | Name  | Age | Country |\r
 |-------|-----|---------|\r
 | Alice | 25  | USA     |\r
