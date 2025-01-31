@@ -11,7 +11,7 @@ Use \`#\` to create **headings**:\r
 ## This is a H2 heading\r
 ### This is a H3 heading\r
 \`\`\`\r
-• **Example Output:**\r
+ **Example Output:**\r
 # This is a H1 heading  \r
 ## This is a H2 heading  \r
 ### This is a H3 heading  \r
@@ -24,7 +24,7 @@ Use \`#\` to create **headings**:\r
 *Italic text*\r
 ~~Strikethrough~~\r
 \`\`\`\r
-• **Example Output:**  \r
+ **Example Output:**  \r
 **Bold text**  \r
 *Italic text*  \r
 ~~Strikethrough~~  \r
@@ -41,7 +41,7 @@ Funnily enough, Markdown does not have underlined text for some reason.\r
   - Sub-item 1\r
   - Sub-item 2\r
 \`\`\`\r
-• **Example Output:**  \r
+ **Example Output:**  \r
 - Item 1  \r
 - Item 2  \r
   - Sub-item 1  \r
@@ -53,7 +53,7 @@ Funnily enough, Markdown does not have underlined text for some reason.\r
 2. Second item\r
 3. Third item\r
 \`\`\`\r
-• **Example Output:**  \r
+ **Example Output:**  \r
 1. First item  \r
 2. Second item  \r
 3. Third item  \r
@@ -67,7 +67,7 @@ Use **backticks** (\`) for inline and block code.\r
 \`\`\`md\r
 Use \`print("Hello, world!")\` in Python.\r
 \`\`\`\r
-• **Example Output:**  \r
+ **Example Output:**  \r
 Use \`print("Hello, world!")\` in Python.\r
 \r
 ### **Multi-line Code Blocks**\r
@@ -78,7 +78,7 @@ def hello():\r
     print("Hello, world!")\r
 \`\`\`\r
 \`\`\`\r
-• **Example Output:**\r
+ **Example Output:**\r
 \`\`\`python\r
 def hello():\r
     print("Hello, world!")\r
@@ -91,7 +91,7 @@ Create links using this format:\r
 \`\`\`md\r
 [Link Text](https://example.com)\r
 \`\`\`\r
-• **Example Output:**  \r
+ **Example Output:**  \r
 [Visit Example](https://www.apple.com/)\r
 \r
 ---\r
@@ -101,7 +101,7 @@ Use \`>\` to create a **blockquote**:\r
 \`\`\`md\r
 > This is a blockquote.\r
 \`\`\`\r
-• **Example Output:**\r
+ **Example Output:**\r
 > This is a blockquote.\r
 \r
 ---\r
@@ -116,7 +116,7 @@ Use pipes (\`|\`) to create **tables**:\r
 | Bob   | 30  | Canada  |\r
 \`\`\`\r
 \r
-• **Example Output:**\r
+ **Example Output:**\r
 \r
 | Name  | Age | Country |\r
 |-------|-----|---------|\r
@@ -139,7 +139,7 @@ For example, I have uploaded a simple [GIF](https://www.tumblr.com/unstickyhunte
 ![Spinning Burger](./example.webp)\r
 \`\`\`\r
 \r
-• **Example Output:**\r
+ **Example Output:**\r
 ![Spinning Burger](./example.webp)\r
 \r
 I will mostly handle this, just make sure to name the file something unique and consistent with the image you send/reference in your file.\r
@@ -151,20 +151,20 @@ I will mostly handle this, just make sure to name the file something unique and 
 **This site uses a custom equation format!**\r
 \r
 MathJax is a bit strange, and requires two backslashes to could as a single one. So, for a new line, you'd do \`\\\\\\\\\` instead of \`\\\\\`. You will not be able to use \`$\` or \`$$\`.\r
-- **Inline equations** use **\`\\\\(\` and \`\\\\)\`** like this:\r
+**Inline equations** use **\`\\\\(\` and \`\\\\)\`** like this:\r
   \`\`\`md\r
   The equation \\\\(E = mc^2\\\\) describes mass-energy equivalence.\r
   \`\`\`\r
-  • **Example Output:**  \r
+   **Example Output:**  \r
   The equation \\\\(E = mc^2\\\\) describes mass-energy equivalence.\r
 \r
-- **Block equations** use **\`\\\\[\` and \`\\\\]\`**, with a blank line before and after:\r
+**Block equations** use **\`\\\\[\` and \`\\\\]\`**, with a blank line before and after:\r
   \`\`\`md\r
   \\\\[  \r
       f(x) = x^2  \r
   \\\\]\r
   \`\`\`\r
-  • **Example Output:**\r
+   **Example Output:**\r
   \\\\[\r
   f(x) = x^2\r
   \\\\]\r
