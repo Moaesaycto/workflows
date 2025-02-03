@@ -1,16 +1,12 @@
-# Setting Up a Flask Server
+# Flask Guide
 
-
-## **1. Install Flask**
-Ensure you have Python installed, then install Flask:
+## 1. Installing Flask
 
 ```sh
 pip install flask
 ```
 
-
-## **2. Create a Basic Flask Server**
-Create a file called `app.py` and add:
+## 2. Creating a Basic Flask App
 
 ```python
 from flask import Flask
@@ -21,131 +17,180 @@ app = Flask(__name__)
 def home():
     return "Hello, Flask!"
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000, debug=True)
 ```
 
-Run it with:
-
-```sh
-python app.py
-```
-
-By default, this starts a server at `http://127.0.0.1:5000/`.
-
-
-## **3. Enable Cross-Origin Resource Sharing (CORS)**
-If your frontend is separate (React, Vue, etc.), enable **CORS** to allow requests from different origins.
-
-Install the CORS package:
-
-```sh
-pip install flask-cors
-```
-
-Modify `app.py`:
+## 3. Routing and Dynamic URLs
 
 ```python
-from flask_cors import CORS
+@app.route('/user/<name>')
+def user(name):
+    return f"Hello, {name}!"
 
-app = Flask(__name__)
-CORS(app)  # Enables CORS for all routes
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+    return f"Post ID: {post_id}"
 ```
 
-To restrict CORS to specific origins:
+### Query Parameters
 
 ```python
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+@app.route('/search')
+def search():
+    query = request.args.get('q')
+    return f"Search results for: {query}"
 ```
 
+## 4. Handling HTTP Methods
 
-## **4. Using Blueprints for Modular Code**
-For larger apps, **Blueprints** help organize routes.
+```python
+from flask import request
 
-Create a folder **`routes/`** and inside it, a file `hello.py`:
+@app.route('/submit', methods=['GET', 'POST'])
+def submit():
+    if request.method == 'POST':
+        data = request.form['data']
+        return f"Received: {data}"
+    return "Send a POST request."
+```
+
+## 5. Handling JSON Requests
+
+```python
+from flask import jsonify
+
+@app.route('/api/data', methods=['POST'])
+def api_data():
+    data = request.get_json()
+    return jsonify({"received": data})
+```
+
+## 6. Template Rendering (Jinja2)
+
+```python
+from flask import render_template
+
+@app.route('/hello/<name>')
+def hello(name):
+    return render_template('hello.html', name=name)
+```
+
+**hello.html:**
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Hello, {{ name }}!</h1>
+</body>
+</html>
+```
+
+## 7. Flask Blueprints (Modularization)
 
 ```python
 from flask import Blueprint
 
-hello_bp = Blueprint('hello', __name__)
+example_bp = Blueprint('example', __name__)
 
-@hello_bp.route('/hello')
-def hello():
+@example_bp.route('/hello')
+def example_hello():
     return "Hello from Blueprint!"
+
+app.register_blueprint(example_bp, url_prefix='/example')
 ```
 
-Now, update `app.py`:
+## 8. Handling CORS
 
 ```python
-from flask import Flask
-from routes.hello import hello_bp
+from flask_cors import CORS
 
-app = Flask(__name__)
-app.register_blueprint(hello_bp, url_prefix='/api')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+CORS(app)  # Allow all origins
 ```
 
-Now, `/api/hello` will return `"Hello from Blueprint!"`.
-
-
-## **5. Basic Security Measures**
-Flask provides built-in security features, but some best practices include:
-
-### **Use `Flask-Talisman` for Security Headers**
-```sh
-pip install flask-talisman
+For specific origins:
+```python
+CORS(app, resources={r"/api/*": {"origins": "https://example.com"}})
 ```
 
-Modify `app.py`:
+## 9. Authentication & Security
+
+### Using Flask-Login
+```python
+from flask_login import LoginManager
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+```
+
+### Hashing Passwords
+```python
+from werkzeug.security import generate_password_hash, check_password_hash
+
+hashed_pw = generate_password_hash("mypassword")
+check_password_hash(hashed_pw, "mypassword")  # True
+```
+
+## 10. Database Integration (Flask-SQLAlchemy)
 
 ```python
-from flask_talisman import Talisman
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-Talisman(app)  # Enforces security headers like Content Security Policy
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+
+db.create_all()
 ```
 
-
-### **Use Environment Variables for Secrets**
-Instead of hardcoding secrets, store them in an `.env` file:
-
-```sh
-FLASK_SECRET_KEY=your-secret-key
-```
-
-Then, load it in `app.py`:
+## 11. Error Handling
 
 ```python
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-app.secret_key = os.getenv("FLASK_SECRET_KEY")
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Not found"}), 404
 ```
 
-Install the dotenv package if needed:
+## 12. Preparing for Production
 
-```sh
-pip install python-dotenv
-```
-
-
-## **6. Deploying Your Flask App**
-For production, use **Gunicorn**:
-
+### Running with Gunicorn
 ```sh
 pip install gunicorn
-gunicorn -w 4 -b 0.0.0.0:5000 app:app
+gunicorn -w 4 -b 0.0.0.0:8000 app:app
 ```
 
-Or deploy with **Docker**:
+### Using Nginx as a Reverse Proxy
+Example `nginx.conf`:
+```nginx
+server {
+    listen 80;
+    server_name example.com;
 
-```dockerfile
-FROM python:3.10
-WORKDIR /app
-COPY . .
-RUN pip install -r requirements.txt
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+## 13. Environment Variables
+
+```sh
+export FLASK_ENV=production
+export SECRET_KEY="your-secret-key"
+export FLASK_RUN_PORT=5000
+export FLASK_RUN_HOST=0.0.0.0
+```
+
+## 14. Logging
+
+```python
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logging.info("Flask app started!")
 ```
