@@ -91,7 +91,7 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                   .replace(".md", "")
                   .replace(/-/g, " ");
                 return (
-                  <motion.li
+                    <motion.li
                     key={fileName}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -101,13 +101,14 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
                     style={{
                       backgroundColor: style?.articleBackgroundColor,
                       color: isColorDark(style?.articleBackgroundColor ?? "#fff")
-                        ? "#ffffff"
-                        : "#000000",
+                      ? "#ffffff"
+                      : "#000000",
+                      fontFamily: "'Roboto', sans-serif",
                     }}
                     onClick={() => onItemClick?.(fileName)}
-                  >
+                    >
                     {displayName}
-                  </motion.li>
+                    </motion.li>
                 );
               })}
             </ul>
