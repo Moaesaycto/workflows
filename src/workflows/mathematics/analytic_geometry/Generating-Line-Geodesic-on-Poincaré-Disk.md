@@ -2,30 +2,35 @@
 
 ## Code Example
 
-Below is the function that defines the center of of the circle that makes the geodesic.
+Below is the function that defines the center of of the circle that makes the geodesic. Checking is done with a manually entered machine number, as follows:
+
+```javascript
+const EPSILON = 1e-10;
+```
+
+We can find the center of the arc that forms the geodesic using the following logic.
 
 ```javascript
 function getCenter(p1, p2) {
-    // Ensure consistent ordering
-    if (p1.x > p2.x || (nearlyEqual(p1.x, p2.x) && p1.y > p2.y)) [p1, p2] = [p2, p1];
+        if (p2.x < 0 && Math.abs(p2.y) < EPSILON) [p1, p2] = [p2, p1];
 
-    let { x: Px, y: Py } = p1, { x: Qx, y: Qy } = p2;
-    let { x: iPx, y: iPy } = pDiskInvert(p1), { x: iQx, y: iQy } = pDiskInvert(p2);
-    let M = new Point((Px + iPx) / 2, (Py + iPy) / 2);
-    let N = new Point((Qx + iQx) / 2, (Qy + iQy) / 2);
+        const [Px, Py, Qx, Qy] = [p1.x, p1.y, p2.x, p2.y];
+        const [iP, iQ] = [pDiskInvert(p1), pDiskInvert(p2)];
+        const [Mx, My, Nx, Ny] = [(Px + iP.x) / 2, (Py + iP.y) / 2, (Qx + iQ.x) / 2, (Qy + iQ.y) / 2];
 
-    let getLine = (P, iP, M) => nearlyEqual(P.y, iP.y)
-        ? [Infinity, M.x]
-        : [-(P.x - iP.x) / (P.y - iP.y), M.y - ((P.x - iP.x) / (P.y - iP.y)) * M.x];
-    let [mp, bp] = getLine(p1, { x: iPx, y: iPy }, M);
-    let [mq, bq] = getLine(p2, { x: iQx, y: iQy }, N);
+        const mp = Math.abs(Py - My) < EPSILON ? Infinity : -(Px - Mx) / (Py - My);
+        const mq = Math.abs(Qy - Ny) < EPSILON ? Infinity : -(Qx - Nx) / (Qy - Ny);
+        const bp = My - (mp === Infinity ? 0 : mp * Mx);
+        const bq = Ny - (mq === Infinity ? 0 : mq * Nx);
 
-    if (nearlyEqual(mp, mq)) return null; // Parallel or coincident lines
-    let x = (mp === Infinity) ? bp : (mq === Infinity) ? bq : (bq - bp) / (mp - mq);
-    let y = (mp === Infinity) ? mq * x + bq : mp * x + bp;
+        if (Math.abs(mp - mq) < EPSILON) return null;
 
-    return new Point(x, y);
-}
+        const x = mp === Infinity ? Mx : mq === Infinity ? Nx : (bq - bp) / (mp - mq);
+        const y = mp === Infinity ? mq * x + bq : mp * x + bp;
+
+        return new Point(x, y);
+    }
+
 ```
 
 The code above uses [circle inversions](/workflows/#/mathematics/analytic_geometry/Circle-Inversions) which are defind with the function below.
@@ -45,40 +50,28 @@ const pDiskInvert = (p) => {
 }
 ```
 
-Finally, we check similarity using a manually assigned machine number to account for floating point arithmetic errors.
-
-```javascript
-const EPSILON = 1e-10;
-const nearlyEqual = (a, b, epsilon = EPSILON) => Math.abs(a - b) < epsilon;
-```
-
 Rendering the arc can be done with the following code.
 
 ```javascript
 toSVG() {
     if (!this.center) return null;
 
-    const transform = p => [POINCARE_WIDTH * (p.x + 1) / 2, POINCARE_HEIGHT * (1 - p.y) / 2];
-    const [svgP1X, svgP1Y] = transform(this.p1);
-    const [svgP2X, svgP2Y] = transform(this.p2);
-    const [svgCenterX, svgCenterY] = transform(this.center);
-    const svgRadius = (this.radius * POINCARE_WIDTH) / 2;
+    const [svgP1X, svgP1Y] = [POINCARE_WIDTH * (this.p1.x + 1) / 2, POINCARE_HEIGHT * (1 - this.p1.y) / 2];
+    const [svgP2X, svgP2Y] = [POINCARE_WIDTH * (this.p2.x + 1) / 2, POINCARE_HEIGHT * (1 - this.p2.y) / 2];
+    const [svgCenterX, svgCenterY] = [POINCARE_WIDTH * (this.center.x + 1) / 2, POINCARE_HEIGHT * (1 - this.center.y) / 2];
+    const svgRadius = this.radius * POINCARE_WIDTH / 2;
 
-    const v1 = { x: svgP1X - svgCenterX, y: svgP1Y - svgCenterY };
-    const v2 = { x: svgP2X - svgCenterX, y: svgP2Y - svgCenterY };
+    const vector1 = { x: svgP1X - svgCenterX, y: svgP1Y - svgCenterY };
+    const vector2 = { x: svgP2X - svgCenterX, y: svgP2Y - svgCenterY };
 
-    const crossProduct = v1.x * v2.y - v1.y * v2.x;
+    const crossProduct = vector1.x * vector2.y - vector1.y * vector2.x;
     const sweepFlag = crossProduct > 0 ? 1 : 0;
 
-    const angleDiff = (Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x) + 2 * Math.PI) % (2 * Math.PI);
-    const largeArcFlag = angleDiff > Math.PI ? 1 : 0;
+    const angleBetweenPoints = Math.atan2(vector2.y, vector2.x) - Math.atan2(vector1.y, vector1.x);
+    const largeArcFlag = (((angleBetweenPoints % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)) > Math.PI ? 0 : 0;
 
-    return <path
-        d={`M${svgP1X},${svgP1Y} A${svgRadius},${svgRadius} 0 ${largeArcFlag},${sweepFlag} ${svgP2X},${svgP2Y}`}
-        stroke={LINE_COLOR}
-        fill="none"
-        strokeWidth={LINE_WIDTH}
-    />;
+    const path = `M${svgP1X},${svgP1Y} A${svgRadius},${svgRadius} 0 ${largeArcFlag*1.5},${sweepFlag} ${svgP2X},${svgP2Y}`;
+    return <path d={path} stroke={LINE_COLOR} fill="none" strokeWidth={LINE_WIDTH.toString()} />;
 }
 ```
 
