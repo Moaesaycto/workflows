@@ -155,7 +155,7 @@ function CodeBlock({ inline, className, children, ...props }: { inline?: boolean
                 style={oneDark}
                 language={language}
                 PreTag="div"
-                className="!m-0"
+                className="!m-0 horizontal-scroll-code"
                 {...props}
             >
                 {String(children).replace(/\n$/, "")}

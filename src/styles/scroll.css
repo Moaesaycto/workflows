@@ -3,6 +3,10 @@
     --scrollbar-thumb-bg: #515153;
     --scrollbar-thumb-bg-horizontal: #555;
     --scrollbar-border: #18181B;
+
+    --code-scrollbar-bg: #22252b;
+    --code-scrollbar-thumb-bg-horizontal: #364153;
+    --code-scrollbar-border: #22252b;
 }
 
 body::-webkit-scrollbar {
@@ -38,4 +42,20 @@ body::-webkit-scrollbar-button {
 .horizontal-scroll::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: var(--scrollbar-thumb-bg-horizontal);
+}
+
+.horizontal-scroll-code::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: var(--code-scrollbar-bg);
+}
+
+.horizontal-scroll-code::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: var(--code-scrollbar-bg);
+}
+
+.horizontal-scroll-code::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--code-scrollbar-thumb-bg-horizontal);
 }
