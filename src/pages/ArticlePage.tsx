@@ -1,10 +1,14 @@
 import { useParams } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 const MarkdownViewer = lazy(() => import("../components/MarkdownViewer"));
 
 export default function ArticlePage() {
   const { category, subcategory, article } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [category, subcategory, article]);
 
   if (!category || !subcategory || !article) {
     return <p className="text-center mt-5 text-gray-600">Invalid article path.</p>;
