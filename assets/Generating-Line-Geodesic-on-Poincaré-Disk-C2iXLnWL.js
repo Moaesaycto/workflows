@@ -91,7 +91,7 @@ The Poincaré disk model represents hyperbolic lines as either:\r
 1. Euclidean lines passing through the origin.\r
 2. Circular arcs orthogonal to the unit circle.\r
 \r
-Given two points \\\\( P(x_1, y_1) \\\\) and \\\\( Q(x_2, y_2) \\\\), the goal is to determine the center of the circular arc forming the geodesic. If \\\\( Q \\\\) is to the left of the origin and nearly on the \\\\( x \\\\)-axis, swap \\\\( P \\\\) and \\\\( Q \\\\). If \\\\( P \\\\) and \\\\( Q \\\\) are collinear with the origin, return \`null\` since the geodesic is a straight line. Now, we take the [circle inversions](/workflows/#/mathematics/analytic_geometry/Circle-Inversions) as follows:\r
+Given two points \\\\( P(x_1, y_1) \\\\) and \\\\( Q(x_2, y_2) \\\\), the goal is to determine the center of the circular arc forming the geodesic. If \\\\( Q \\\\) is to the left of the origin and nearly on the \\\\( x \\\\)-axis, swap \\\\( P \\\\) and \\\\( Q \\\\). If \\\\( P \\\\) and \\\\( Q \\\\) are collinear with the origin, return \`null\` since the geodesic is a [straight line](/workflows/#/mathematics/analytic_geometry/Reflecting-a-Point-Over-a-Line). Now, we take the [circle inversions](/workflows/#/mathematics/analytic_geometry/Circle-Inversions) as follows:\r
    \\\\[\r
    P' = \\\\text{pDiskInvert}(P), ~~~~ Q' = \\\\text{pDiskInvert}(Q)\r
    \\\\]\r
