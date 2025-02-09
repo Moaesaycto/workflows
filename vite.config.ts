@@ -19,6 +19,19 @@ export default defineConfig({
           if (id.includes('node_modules')) {
             return 'vendor'; // Moves all dependencies into a separate chunk
           }
+          if (id.includes("react-syntax-highlighter")) {
+            return "syntax-highlighter";
+          }
+          // Put better-react-mathjax in its own chunk, etc.
+          if (id.includes("better-react-mathjax")) {
+            return "mathjax";
+          }
+          // You could add more chunk splits here as desired
+
+          // If you also want all node_modules in a vendor chunk:
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
         }
       }
     }
