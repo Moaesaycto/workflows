@@ -10,6 +10,7 @@ import { Clipboard } from "lucide-react";
 import { getMarkdownContent } from "../utils/file";
 import { useTheme } from "../App";
 import { isColorDark } from "../utils/color";
+import { Check, Share2 } from "lucide-react";
 
 interface MarkdownViewerProps {
     filePath: string;
@@ -38,9 +39,12 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
         <MathJaxContext config={config}>
             <div>
                 <div className="p-4">
-                    <div className="flex flex-row w-full justify-between items-center bg-zinc-900 p-4 rounded-lg mb-3 gap-4">
-                        <h3 className="uppercase font-bold text-xl">{articleRoute}</h3>
-                        <ReturnButton category={category} />
+                    <div className="flex flex-col md:flex-row w-full justify-between items-center bg-zinc-900 p-4 rounded-lg mb-3 gap-4">
+                        <h3 className="uppercase font-bold text-xl text-center md:text-left">{articleRoute}</h3>
+                        <div className="flex items-center gap-4 mt-2 md:mt-0">
+                            <ShareButton />
+                            <ReturnButton category={category} />
+                        </div>
                     </div>
 
                     <div className="p-4 bg-zinc-900 text-white rounded-md">
@@ -189,6 +193,27 @@ const ReturnButton = ({ category }: ReturnButtonProps) => {
                 ←
             </span>
             Back to {capitalize(category)}
+        </button>
+    );
+};
+
+const ShareButton = () => {
+    const [copied, setCopied] = useState(false);
+
+    const handleShare = () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    };
+
+    return (
+        <button
+            className="px-4 py-2 bg-zinc-500 text-white rounded-lg shadow-md hover:bg-zinc-600 flex items-center"
+            onClick={handleShare}
+        >
+            {copied ? <Check className="mr-2" size={16} /> : <Share2 className="mr-2" size={16} />}
+            {copied ? "Copied!" : "Share"}
         </button>
     );
 };
