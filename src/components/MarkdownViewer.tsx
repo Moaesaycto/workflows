@@ -74,18 +74,9 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
       h3: ({ children }: { children?: React.ReactNode }) => (
         <h3 className="text-xl font-medium mt-4">{children}</h3>
       ),
-      p: ({ children }: { children?: React.ReactNode }) => {
-        if (typeof children === "string") {
-          if (children.match(/^\$\$(.*?)\$\$$/s) || children.match(/^\\\[(.*?)\\\]$/s)) {
-            return (
-              <div className="overflow-x-auto w-full overflow-y-hidden horizontal-scroll">
-                <MathJax>{children}</MathJax>
-              </div>
-            );
-          }
-          if (children.match(/\$(.*?)\$/)) {
-            return <MathJax inline>{children}</MathJax>;
-          }
+      p: ({ node, children }: { node?: any; children?: React.ReactNode }) => {
+        if (node?.parent?.type === "listItem") {
+          return <span className="text-lg text-gray-300">{children}</span>;
         }
         return <p className="text-lg text-gray-300 mt-2">{children}</p>;
       },
@@ -114,12 +105,14 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
         <td className="border border-gray-500 px-4 py-2">{children}</td>
       ),
       ul: ({ children }: { children?: React.ReactNode }) => (
-        <ul className="list-disc list-inside pl-3">{children}</ul>
+        <ul className="list-disc pl-6">{children}</ul>
       ),
       ol: ({ children }: { children?: React.ReactNode }) => (
-        <ol className="list-decimal list-inside pl-3">{children}</ol>
+        <ol className="list-decimal pl-6">{children}</ol>
       ),
-      li: ({ children }: { children?: React.ReactNode }) => <li className="ml-3">{children}</li>,
+      li: ({ children }: { children?: React.ReactNode }) => (
+        <li className="mb-1">{children}</li>
+      ),
       hr: () => <hr className="my-8 border-gray-700" />,
     }),
     []
