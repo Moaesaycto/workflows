@@ -52,7 +52,7 @@ To automatically deploy your mod to the mods folder when it is built, look for `
 tasks.register('copyJarToServer', Copy) {
     from layout.buildDirectory.dir("libs")
     include "*.jar"
-    into "C:\\Users\\Stephen\\Desktop\\Fabric Server\\mods"
+    into "C:\\Users\\Path\\To\\Fabric Server\\mods"
 }
 ```
 
