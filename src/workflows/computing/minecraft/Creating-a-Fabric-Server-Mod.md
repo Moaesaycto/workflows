@@ -73,7 +73,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 ```
 
-This will allow us to print to the console. Then, we create a logger instance inside of our mod class and print from there. This can be done with the following code:0000000000000000000000000000000
+This will allow us to print to the console. Then, we create a logger instance inside of our mod class and print from there. This can be done with the following code:
 
 ```java
 public class Myproject implements ModInitializer {
