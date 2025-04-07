@@ -62,4 +62,44 @@ def create_title(string, width=None):\r
     body = [f"{d * bx}{s.center(g)}{d * bx}" for s in secs]\r
 \r
     return "\\n".join(tb + body + tb[::-1])\r
+\`\`\`\r
+\r
+## Example Usage:\r
+\r
+Running the following code:\r
+\r
+\`\`\`python\r
+print(create_title("Line 1\\nLine 2\\nLine 3"))\r
+\`\`\`\r
+\r
+Will return the following:\r
+\r
+\`\`\`plaintext\r
+##################\r
+#                #\r
+#     Line 1     #\r
+#     Line 2     #\r
+#     Line 3     #\r
+#                #\r
+##################\r
+\`\`\`\r
+\r
+Using the given \`width\` arugment, you can restrict the width to a certain number of characters:\r
+\r
+\`\`\`python\r
+print(create_title("Aggressive wrapping on narrow width", width=10))\r
+\`\`\`\r
+\r
+Will return the following:\r
+\r
+\`\`\`plaintext\r
+##################\r
+#                #\r
+#  Aggressive    #\r
+#   wrapping     #\r
+#      on        #\r
+#    narrow      #\r
+#     width      #\r
+#                #\r
+##################\r
 \`\`\``;export{n as default};
