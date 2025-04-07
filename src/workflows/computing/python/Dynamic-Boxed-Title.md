@@ -63,3 +63,43 @@ def create_title(string, width=None):
 
     return "\n".join(tb + body + tb[::-1])
 ```
+
+## Example Usage:
+
+Running the following code:
+
+```python
+print(create_title("Line 1\nLine 2\nLine 3"))
+```
+
+Will return the following:
+
+```plaintext
+##################
+#                #
+#     Line 1     #
+#     Line 2     #
+#     Line 3     #
+#                #
+##################
+```
+
+Using the given `width` arugment, you can restrict the width to a certain number of characters:
+
+```python
+print(create_title("Aggressive wrapping on narrow width", width=10))
+```
+
+Will return the following:
+
+```plaintext
+##################
+#                #
+#  Aggressive    #
+#   wrapping     #
+#      on        #
+#    narrow      #
+#     width      #
+#                #
+##################
+```

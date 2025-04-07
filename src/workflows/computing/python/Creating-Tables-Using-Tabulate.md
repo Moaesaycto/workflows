@@ -24,7 +24,7 @@ print(tabulate(data, headers=headers))
 ```
 
 ### Output:
-```
+```plaintext
 Name      Age
 -------  -----
 Alice      24
