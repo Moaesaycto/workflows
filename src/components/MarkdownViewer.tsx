@@ -30,6 +30,7 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
       ["typescript", () => import("react-syntax-highlighter/dist/esm/languages/prism/typescript")],
       ["javascript", () => import("react-syntax-highlighter/dist/esm/languages/prism/javascript")],
       ["jsx", () => import("react-syntax-highlighter/dist/esm/languages/prism/jsx")],
+      ["tsx", () => import("react-syntax-highlighter/dist/esm/languages/prism/tsx")],
       ["java", () => import("react-syntax-highlighter/dist/esm/languages/prism/java")],
       ["python", () => import("react-syntax-highlighter/dist/esm/languages/prism/python")],
       ["cpp", () => import("react-syntax-highlighter/dist/esm/languages/prism/cpp")],
