@@ -23,6 +23,23 @@ This page will have a list of the basics of the rules you should know:
 grep -E 'cat|dog' file.txt
 ```
 
+## Useful Keywords
+| Option | Description                      |
+| ------ | -------------------------------- |
+| `-i`   | Ignore case                      |
+| `-v`   | Invert match                     |
+| `-E`   | Use extended regex               |
+| `-r`   | Recursively search directories   |
+| `-n`   | Show line numbers                |
+| `-c`   | Show match count                 |
+| `-o`   | Only print matching part of line |
+| `-w`   | Match whole words only           |
+| `-x`   | Match whole line only            |
+| `-A N` | Show N lines **after** match     |
+| `-B N` | Show N lines **before** match    |
+| `-C N` | Show N lines **around** match    |
+
+
 ## Grouping
 
 - `()`: Grouping uses parentheses for group patterns, such as `gr(a|e)y` to match `grey` and `gray`.
