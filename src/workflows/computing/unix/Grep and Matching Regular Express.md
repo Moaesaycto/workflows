@@ -58,3 +58,61 @@ grep -E 'cat|dog' file.txt
 - `?`: Question mark is for zero or one times (think of it as a single, optional character)
 - `+`: Plus sign is for one or more
 - `{}`: Using braces allows you to define how may times something is expected, for example, `{3}` means three times, `{2, 5}` means between two and five (inclusive), and `{2,}` means two or more.
+
+## Perl-Compatible Regex (PCRE)
+
+* **Lookaheads / Lookbehinds**
+
+  * `(?=...)` – Match if followed by something
+    · `\w+(?=\d)` → Matches `item` in `item1`
+  * `(?<=...)` – Match if preceded by something
+    · `(?<=@)\w+` → Matches `domain` in `user@domain`
+  * `(?!...)` – Match if **not** followed by something
+    · `foo(?!bar)` → Matches `foo` not followed by `bar`
+  * `(?<!...)` – Match if **not** preceded by something
+    · `(?<!\$)\d+` → Matches `30` in `$50 30`
+
+* **Non-capturing groups**
+
+  * `(?:...)` → group without saving a match
+    · `(?:foo|bar)baz` → Matches `foobaz` and `barbaz`, no capture
+
+* **Named capture groups**
+
+  * `(?<name>...)` → assign a name to a captured group
+    · `(?<area>\d{3})-(?<num>\d{3}-\d{4})` → Matches `123-456-7890` with named groups
+
+* **Lazy quantifiers**
+
+  * `*?`, `+?`, `??` → non-greedy matching
+    · `<.*?>` → Matches `<b>` in `<b>bold</b>` instead of the whole tag pair
+
+* **Unicode properties**
+
+  * `\p{L}`, `\p{N}` → match letters, numbers, etc.
+    · `\p{L}+` → Matches `café` including `é`
+    · `\p{N}+` → Matches `١٢٣` (Arabic numerals)
+
+* **Backreferences in lookaheads**
+
+  * Use captured groups inside lookaheads
+    · `\b(\w+)(?=.*\1\b)` → Matches `cat` in `cat dog cat` (appears again later)
+
+* **Enhanced escape sequences**
+
+  * `\R` → any line break (handles `\n`, `\r\n`, etc.)
+    · `Line1\RLine2` → Matches across systems
+  * `\K` → reset match start (ignore earlier part)
+    · `foo\Kbar` → Matches only `bar` (ignores `foo` in result)
+
+* **Conditional expressions**
+
+  * `(?(1)yes|no)` → conditional match based on group 1
+    · `(abc)?(?(1)123|456)`
+    Matches `abc123` if `abc` is present, `456` if not
+
+* **Recursive patterns**
+
+  * `(?1)`, `(?&name)` → recursive call to a numbered or named group
+    · `^(A(?1)?B)$` → Matches exactly `n` A’s followed by `n` B’s
+    · Enables balanced or nested structures using pure regex

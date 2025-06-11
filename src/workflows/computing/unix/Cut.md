@@ -20,6 +20,7 @@ The `cut` command extracts specific **columns or character ranges** from each li
 * `cut -f1 file`: print first **TAB-separated** field.
 * `cut -d',' -f2 file`: print second **CSV** field.
 * `cut -c1-5 file`: print first 5 characters of each line.
+* `cut -c4- file`: print from character 4 to the end of each line.
 * `echo "abc:def:ghi" | cut -d':' -f2`: prints `def`.
 
 ## Notes
