@@ -71,11 +71,14 @@ export default function MarkdownViewer({ filePath }: MarkdownViewerProps) {
       ),
       h2: ({ children }: { children?: React.ReactNode }) => (
         <h2 className="text-2xl font-semibold mt-10">{children}</h2>
-      ),
-      h3: ({ children }: { children?: React.ReactNode }) => (
+            ),
+            h3: ({ children }: { children?: React.ReactNode }) => (
         <h3 className="text-xl font-medium mt-4">{children}</h3>
-      ),
-      p: ({ node, children }: { node?: any; children?: React.ReactNode }) => {
+            ),
+            h4: ({ children }: { children?: React.ReactNode }) => (
+        <h4 className="text-lg font-medium mt-3">{children}</h4>
+            ),
+            p: ({ node, children }: { node?: any; children?: React.ReactNode }) => {
         if (node?.parent?.type === "listItem") {
           return <span className="text-lg text-gray-300">{children}</span>;
         }

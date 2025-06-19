@@ -25,3 +25,4 @@
 * Outputs counts followed by filename (or nothing if from `stdin`).
 * Line count is based on **newlines**, not visual lines.
 * Use multiple flags together: `wc -lw file`.
+* If you do `wc -l < file`, it will only print the number.
