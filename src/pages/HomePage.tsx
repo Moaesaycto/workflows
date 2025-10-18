@@ -5,7 +5,7 @@ const HomePage = () => {
                 Welcome to Workflows
             </h2>
             <p className="text-lg mb-6 leading-relaxed">
-                This is a curated collection of useful notes, instructions, and summaries—resources that would otherwise be difficult to find online. With the rise of AI-generated slop and search engines becoming infested with malignant SEO,
+                This is a curated collection of useful notes, instructions, and summaries/resources that would otherwise be difficult to find online. With the rise of AI-generated slop and search engines becoming infested with malignant SEO,
                 it's increasingly challenging to find clear, concise instructions for tasks that were once accessible within a few clicks.
             </p>
             <p className="text-lg mb-6 leading-relaxed">
