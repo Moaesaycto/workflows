@@ -1,50 +1,21 @@
-# React + TypeScript + Vite
+# **Workflows**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Type:** Web App / Knowledge Platform · **Tech Stack:** TypeScript, React, Vite, Markdown Rendering · **Status:** Active
 
-Currently, two official plugins are available:
+🌐 **Explore Workflows:** [moae.dev/workflows](https://moaesaycto.github.io/workflows)
+🤝 **Contribute:** Open to new tutorials and collaborators interested in sharing accessible, well-structured knowledge.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Overview**
 
-## Expanding the ESLint configuration
+**Workflows** is a web platform designed to promote **independent learning** and reduce reliance on AI assistants. Instead of generating uncertain or inconsistent answers, it offers **proven, step-by-step tutorials** written in Markdown, covering practical programming, mathematics, and creative workflows.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## **Features**
 
-- Configure the top-level `parserOptions` property like this:
+* **Structured Learning:** Step-by-step, human-written guides designed for memorisation and repetition.
+* **Markdown-Based System:** Tutorials are stored as `.md` files and automatically rendered into clean, navigable HTML.
+* **Easy Contribution:** New workflows can be added by simply dropping Markdown files into the appropriate topic folders.
+* **AI Independence:** Encourages genuine skill-building rather than passive AI reliance.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## **Purpose**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Built to help learners stay curious and hands-on in an era dominated by AI tools, fostering deeper understanding through clear, repeatable workflows.
