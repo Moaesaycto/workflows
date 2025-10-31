@@ -130,6 +130,14 @@ public Map<String, Object> getUser(@PathVariable int id) {
 }
 ```
 
+In order to see the message from the error, you will need to include the following in the `application.yml` file:
+
+```yaml
+server:
+  error:
+    include-message: always
+```
+
 ## Request Mappings (Blueprints)
 
 Just like blueprints in Flask, we can set up a specific route for a class. For example,
