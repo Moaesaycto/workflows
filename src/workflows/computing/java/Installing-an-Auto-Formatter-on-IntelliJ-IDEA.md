@@ -10,7 +10,7 @@
 
 - From here, go to `Help → Edit Custom VM Options...` and paste in the following lines:
 
-```
+```plaintext
 --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
 --add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
 --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
