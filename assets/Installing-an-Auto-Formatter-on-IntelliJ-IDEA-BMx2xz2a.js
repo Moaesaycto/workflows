@@ -10,7 +10,7 @@ const o=`# Installing an Auto-Formatter on IntelliJ IDEA\r
 \r
 - From here, go to \`Help → Edit Custom VM Options...\` and paste in the following lines:\r
 \r
-\`\`\`\r
+\`\`\`plaintext\r
 --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED\r
 --add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED\r
 --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED\r
@@ -19,4 +19,5 @@ const o=`# Installing an Auto-Formatter on IntelliJ IDEA\r
 --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED\r
 \`\`\`\r
 \r
-- Then, restart the IDE. It should work now!`;export{o as default};
+- Then, restart the IDE. It should work now!\r
+`;export{o as default};
