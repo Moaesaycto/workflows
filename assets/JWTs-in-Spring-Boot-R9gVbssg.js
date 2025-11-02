@@ -4,7 +4,7 @@ const r=`# JWTs in Spring Boot\r
 \r
 - Install the relevant dependencies into \`bulid.gradle\`:\r
 \r
-\`\`\`\r
+\`\`\`gradle\r
 dependencies {\r
   // ...\r
   implementation "org.springframework.boot:spring-boot-starter-security"\r
@@ -21,42 +21,98 @@ app:\r
   jwt:\r
     secret: "change-me-at-least-32-bytes-long" # use env var in real life\r
     expiry-minutes: 15\r
-\r
-spring:\r
   security:\r
-    oauth2:\r
-      resourceserver:\r
-        jwt: {} # decoder provided in @Configuration below\r
+    public-paths:\r
+      - /error # This one is important\r
+      - /game/\r
+      - /game/status\r
+      - /game/settings\r
+      # add your ones\r
+# You only need this if you are using a different encoder. Our tutorial builds one\r
+# spring:\r
+#  security:\r
+#    oauth2:\r
+#      resourceserver:\r
+#        jwt:\r
+#         # use your issuer or jwk-set-uri from your auth provider (Auth0, Keycloak, etc.)\r
+#         # issuer-uri: "https://your-issuer.example/.well-known/openid-configuration"\r
+#         # or instead:\r
+#         # jwk-set-uri: "https://your-issuer.example/.well-known/jwks.json"\r
 \`\`\`\r
 \r
 - Create a security configuration class:\r
 \r
 \`\`\`java\r
 import org.springframework.context.annotation.*;\r
+import org.springframework.security.config.Customizer;\r
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;\r
-import org.springframework.security.web.*;\r
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;\r
+import org.springframework.security.config.http.SessionCreationPolicy;\r
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;\r
 import org.springframework.security.crypto.password.PasswordEncoder;\r
+import org.springframework.security.web.SecurityFilterChain;\r
 \r
 @Configuration\r
 public class SecurityConfig {\r
+\r
+  private final AppSecurityProperties props;\r
+\r
+  // We are storing these in the application.yml file. You can just hard-code a list if you aren't bothered\r
+  public SecurityConfig(AppSecurityProperties props) {\r
+    this.props = props;\r
+  }\r
+\r
   @Bean\r
   SecurityFilterChain api(HttpSecurity http) throws Exception {\r
-    http.csrf(csrf -> csrf.disable()) // Disable CSRF since we're using tokens, not cookies\r
-        // Tell Spring Security this is a stateless API (no HTTP session stored)\r
-        .sessionManagement(sm -> sm.sessionCreationPolicy(\r
-            org.springframework.security.config.http.SessionCreationPolicy.STATELESS))\r
-        .authorizeHttpRequests(auth -> auth\r
-            // Allow anyone to access /auth/login (no authentication needed)\r
-            .requestMatchers("/auth/login").permitAll()\r
-            // All other endpoints must have a valid JWT token\r
-            .anyRequest().authenticated())\r
-        .oauth2ResourceServer(o2 -> o2.jwt());\r
+    String[] publicPaths =\r
+        props.getPublicPaths() == null\r
+            ? new String[0]\r
+            : props.getPublicPaths().toArray(new String[0]);\r
+\r
+    http.csrf(AbstractHttpConfigurer::disable)\r
+        .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))\r
+        .authorizeHttpRequests(\r
+            auth -> auth.requestMatchers(publicPaths).permitAll().anyRequest().authenticated())\r
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));\r
+\r
     return http.build();\r
   }\r
 \r
-  // Provides a password encoder bean for hashing and verifying passwords\r
-  @Bean PasswordEncoder passwordEncoder(){ return new BCryptPasswordEncoder(); }\r
+  @Bean\r
+  PasswordEncoder passwordEncoder() {\r
+    return new BCryptPasswordEncoder();\r
+  }\r
+}\r
+\r
+\`\`\`\r
+\r
+If you care about only using specific methods, then you can do so like this:\r
+\r
+\`\`\`java\r
+.requestMatchers(HttpMethod.PATCH, "/game/settings").permitAll()\r
+.requestMatchers("/game", "/game/", "/game/status").permitAll()\r
+\`\`\`\r
+\r
+In order to actually access the routes from the configuration, you need a separate class:\r
+\r
+\`\`\`java\r
+import org.springframework.boot.context.properties.ConfigurationProperties;\r
+import org.springframework.stereotype.Component;\r
+\r
+import java.util.List;\r
+\r
+@Component\r
+@ConfigurationProperties(prefix = "app.security")\r
+public class AppSecurityProperties {\r
+  private List<String> publicPaths;\r
+\r
+  public List<String> getPublicPaths() {\r
+    return publicPaths;\r
+  }\r
+\r
+  public void setPublicPaths(List<String> publicPaths) {\r
+    this.publicPaths = publicPaths;\r
+  }\r
 }\r
 \`\`\`\r
 \r
