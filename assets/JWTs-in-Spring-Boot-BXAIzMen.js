@@ -139,7 +139,9 @@ public class JwtBeans {\r
   @Bean\r
   JwtDecoder jwtDecoder(@Value("\${app.jwt.secret}") String secret) {\r
     var key = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");\r
-    return NimbusJwtDecoder.withSecretKey(key).build();\r
+    return NimbusJwtDecoder.withSecretKey(key)\r
+        .macAlgorithm(org.springframework.security.oauth2.jose.jws.MacAlgorithm.HS256)\r
+        .build();\r
   }\r
 }\r
 \`\`\`\r
@@ -147,8 +149,6 @@ public class JwtBeans {\r
 - To assign a user a valid token on login, we can create an \`/auth\` mapping:\r
 \r
 \`\`\`java\r
-package dev.moae; // FIXME\r
-\r
 import org.springframework.beans.factory.annotation.Value;\r
 import org.springframework.security.crypto.password.PasswordEncoder;\r
 import org.springframework.security.oauth2.jwt.*;\r
@@ -188,7 +188,9 @@ public class AuthController {\r
         .subject(req.username())\r
         .claim("scope", "api.read api.write")\r
         .build();\r
-    String token = encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();\r
+        \r
+    var header = JwsHeader.with(MacAlgorithm.HS256).build();\r
+    String token = encoder.encode(JwtEncoderParameters.from(header, claims)).getTokenValue();\r
     return Map.of("access_token", token, "token_type", "Bearer");\r
   }\r
 }\r
