@@ -5,7 +5,6 @@ Configuration files are stored as \`config.ini\` (using \`.ini\` files). These f
 This is the basic INI file struction:\r
 \r
 \`\`\`ini\r
-# config.ini\r
 [database]\r
 host = localhost\r
 port = 5432\r
