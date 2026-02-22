@@ -14,4 +14,13 @@ public class JoinListener implements Listener {\r
         // Do stuff... Look through more events\r
     }\r
 }\r
+\`\`\`\r
+\r
+Make sure that you look it up in the \`onEnable\` method for the plugin class:\r
+\r
+\`\`\`java\r
+@Override\r
+public void onEnable() {\r
+    getServer().getPluginManager().registerEvents(new JoinListener(this), this);\r
+}\r
 \`\`\``;export{n as default};
